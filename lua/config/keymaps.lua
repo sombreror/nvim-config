@@ -5,9 +5,8 @@ vim.keymap.set("x", "p", [["_dP]], { desc = "Incolla senza sovrascrivere il regi
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>',  {desc= "pulisce tutto quello evidenziato quando premi esc"})
 
 
-
-
-
+-- LAZYGIT => keymaps config leader+gg -- 
+vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<cr>", {desc = "Apertura LazyGit"})
 
 
 

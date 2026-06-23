@@ -1,14 +1,20 @@
 vim.pack.add({
-  'https://github.com/neovim/nvim-lspconfig',          -- => config pronte per ogni server lsp
-  'https://github.com/mason-org/mason.nvim',           -- => installa i server ; gestore pacchetti
-  'https://github.com/mason-org/mason-lspconfig.nvim', -- => ponte mason <-> lsp ; auto-enable
-  { src = 'https://github.com/saghen/blink.cmp', version = vim.version.range('1.*') }, -- => completamento
-  'https://github.com/rafamadriz/friendly-snippets',   -- => snippet pronti
+    "https://github.com/neovim/nvim-lspconfig",          -- => config pronte per ogni server lsp
+    "https://github.com/mason-org/mason.nvim",           -- => installa i server ; gestore pacchetti
+    "https://github.com/mason-org/mason-lspconfig.nvim", -- => ponte mason <-> lsp ; auto-enable
+    { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") }, -- => completamento
+    "https://github.com/rafamadriz/friendly-snippets",   -- => snippet pronti
+    { src = "https://github.com/romus204/tree-sitter-manager.nvim" },
+    "https://github.com/windwp/nvim-autopairs",          -- => chiude da sola () [] {} "" ''
+    "https://github.com/lewis6991/gitsigns.nvim",        -- => segni git nel margine + blame
+    "https://github.com/nvim-lua/plenary.nvim",          -- => libreria utility (richiesta da lazygit.nvim)
+    "https://github.com/kdheepak/lazygit.nvim",          -- => apre lazygit dentro nvim
 })
 
 
 -- MASON --
 require("mason").setup()
+
 
 -- BLINK => solo le cose NON di default --
 require("blink.cmp").setup({
@@ -20,10 +26,38 @@ require("blink.cmp").setup({
     signature = { enabled = true },         -- => aiuto sui parametri delle funzioni
 })
 
--- LUA => 'vim' globale ; niente warning --
+
+
+-- LUA => "vim" globale ; niente warning --
 vim.lsp.config("lua_ls", {
   settings = { Lua = { diagnostics = { globals = { "vim" } } } },
 })
+
+-- tree-sitter-manager --
+require("tree-sitter-manager").setup({
+    auto_install = true,
+    ensure_installed = {
+        "lua", "python", "javascript", "php", "php_only",
+        "html", "css", "typescript", "json",
+    },
+})
+
+-- gitsigns -- 
+require("gitsigns").setup()
+
+
+
+
+-- AUTOPAIRS => chiude in automatico parentesi e virgolette --
+require("nvim-autopairs").setup({
+    check_ts = true,   -- => usa treesitter ; non chiude se non ha senso nel contesto
+})
+
+
+
+
+
+
 -- MASON-LSPCONFIG => va per ULTIMO ; installa + abilita --
 require("mason-lspconfig").setup({
   ensure_installed = {
