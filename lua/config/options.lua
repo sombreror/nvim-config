@@ -5,6 +5,9 @@ vim.opt.relativenumber = true -- faster movement with hjkl
 -- clipboard --
 vim.opt.clipboard = "unnamedplus"
 
+-- Theme -- 
+vim.opt.termguicolors = true
+
 -- highlight copied text => useful to see if yank worked
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',

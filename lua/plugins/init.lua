@@ -9,7 +9,9 @@ vim.pack.add({
     "https://github.com/lewis6991/gitsigns.nvim",        -- => segni git nel margine + blame
     "https://github.com/nvim-lua/plenary.nvim",          -- => libreria utility (richiesta da lazygit.nvim)
     "https://github.com/kdheepak/lazygit.nvim",          -- => apre lazygit dentro nvim
+    "https://github.com/folke/tokyonight.nvim",          -- => tema Tokyo Night ; abbinato al terminale
 })
+
 
 
 -- MASON --
@@ -74,7 +76,12 @@ require("mason-lspconfig").setup({
 })
 
 
--- future UI -- 
+-- Theme -- 
+require("tokyonight").setup({
+    style = "night",         -- => night / storm / moon / day ; "night" = stesso sfondo del terminale
+})
+vim.cmd.colorscheme("tokyonight")
+
 
 
 

@@ -8,3 +8,6 @@ session*.vim
 *.swp
 *.swo
 *~
+
+# Cartella di Claude Code (impostazioni locali) => mai nel repo
+.claude/
