@@ -1,0 +1,10 @@
+# Runtime / dati locali di Neovim (non vanno versionati)
+shada/
+*.shada
+spell/
+session*.vim
+
+# File di swap/backup
+*.swp
+*.swo
+*~
