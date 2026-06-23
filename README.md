@@ -44,6 +44,26 @@ secondo il lock file.
 
 Il leader è impostato su `<Spazio>`.
 
+## SOON — cose da aggiungere
+
+Personalizzazioni grafiche e di UX in arrivo:
+
+- [ ] **lualine** => barra di stato in fondo (modalità, branch git, diagnostica)
+- [ ] **nvim-web-devicons** => icone per tipo di file (serve a lualine/explorer)
+- [ ] **bufferline** => schede dei file aperti in alto
+- [ ] **file explorer** => neo-tree oppure oil.nvim
+- [ ] **which-key** => popup con i tasti disponibili
+- [ ] **indent-blankline** => guide di indentazione
+- [ ] **rainbow-delimiters** => parentesi colorate per livello
+- [ ] **nvim-colorizer** => mostra i colori `#hex` / `rgb()` inline (utile per CSS)
+- [ ] **dashboard** => schermata d'avvio (alpha / snacks)
+- [ ] **satellite / scrollbar** => barra di scorrimento con segni git
+- [ ] **todo-comments** => evidenzia `TODO:` / `FIXME:`
+- [ ] **trouble** => pannello ordinato di errori/diagnostica
+
+> Nota: `noice.nvim` (cmdline/notifiche ridisegnate) NON va aggiunto =>
+> va in conflitto con l'UI nativa `vim._core.ui2` già usata in `init.lua`.
+
 ## Sincronizzare le modifiche
 
 Dopo aver modificato il config:
