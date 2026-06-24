@@ -5,16 +5,16 @@ vim.opt.relativenumber = true -- faster movement with hjkl
 -- clipboard --
 vim.opt.clipboard = "unnamedplus"
 
--- Theme --
+-- Theme -- 
 vim.opt.termguicolors = true
 
 -- highlight copied text => useful to see if yank worked
 vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
-  callback = function()
+    desc = 'Highlight when yanking (copying) text',
+    group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
+    callback = function()
     vim.hl.on_yank()
-  end,
+    end,
 })
 
 -- keep undo history even after closing files
@@ -52,3 +52,6 @@ vim.opt.scrolloff = 8
 
 -- preserve indentation when long lines wrap
 vim.opt.breakindent = true
+
+
+
