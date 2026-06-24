@@ -5,7 +5,7 @@ vim.opt.relativenumber = true -- faster movement with hjkl
 -- clipboard --
 vim.opt.clipboard = "unnamedplus"
 
--- Theme -- 
+-- Theme --
 vim.opt.termguicolors = true
 
 -- highlight copied text => useful to see if yank worked
@@ -19,6 +19,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- keep undo history even after closing files
 vim.opt.undofile = true
+
 
 -- search --
 vim.opt.ignorecase = true -- ignore uppercase/lowercase
@@ -51,27 +52,3 @@ vim.opt.scrolloff = 8
 
 -- preserve indentation when long lines wrap
 vim.opt.breakindent = true
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

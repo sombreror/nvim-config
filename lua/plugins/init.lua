@@ -10,6 +10,8 @@ vim.pack.add({
     "https://github.com/nvim-lua/plenary.nvim",          -- => libreria utility (richiesta da lazygit.nvim)
     "https://github.com/kdheepak/lazygit.nvim",          -- => apre lazygit dentro nvim
     "https://github.com/folke/tokyonight.nvim",          -- => tema Tokyo Night ; abbinato al terminale
+    "https://github.com/nvim-tree/nvim-web-devicons",    -- => dependency for lualine 
+    "https://github.com/nvim-lualine/lualine.nvim",      -- => lualine pl: status bar 
 })
 
 
@@ -28,6 +30,11 @@ require("blink.cmp").setup({
     signature = { enabled = true },         -- => aiuto sui parametri delle funzioni
 })
 
+-- LSP Config -- 
+vim.diagnostic.config({
+   virtual_text = true, -- => error text
+   severity_sort = true, -- => livello del problema
+})
 
 
 -- LUA => "vim" globale ; niente warning --
@@ -49,14 +56,10 @@ require("gitsigns").setup()
 
 
 
-
 -- AUTOPAIRS => chiude in automatico parentesi e virgolette --
 require("nvim-autopairs").setup({
     check_ts = true,   -- => usa treesitter ; non chiude se non ha senso nel contesto
 })
-
-
-
 
 
 
@@ -76,15 +79,26 @@ require("mason-lspconfig").setup({
 })
 
 
--- Theme -- 
+-- Theme And Various UI Config-- 
 require("tokyonight").setup({
     style = "night",         -- => night / storm / moon / day ; "night" = stesso sfondo del terminale
 })
+
 vim.cmd.colorscheme("tokyonight")
 
 
-
-
+-- LUALINE => status bar  -- 
+require("lualine").setup({
+    options = {
+        theme = "tokyonight",
+        icons_enabled = true,
+        globalstatus = true,
+    },
+    sections = {
+        lualine_y = { "selectioncount", "progress" },
+        lualine_z = { "searchcount", "location" },
+    },
+})
 
 
 
