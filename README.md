@@ -1,80 +1,117 @@
 # nvim-config
 
-La mia configurazione personale di [Neovim](https://neovim.io/).
+My personal [Neovim](https://neovim.io/) configuration.
 
-Usa il package manager nativo **`vim.pack`** — i plugin sono pinnati in
-[`nvim-pack-lock.json`](./nvim-pack-lock.json), così ottieni le stesse versioni
-su ogni dispositivo.
+It uses the native package manager **`vim.pack`** — plugins are pinned in
+[`nvim-pack-lock.json`](./nvim-pack-lock.json), so you get the exact same
+versions on every machine.
 
-## Requisiti
+## Requirements
 
-- **Neovim 0.12+** (nightly), necessario per `vim.pack` e l'UI sperimentale
-  `vim._core.ui2`.
+- **Neovim 0.12+** (nightly), required for `vim.pack` and the experimental
+  `vim._core.ui2` UI.
 - `git`
+- [`lazygit`](https://github.com/jesseduffield/lazygit) — for the in-editor git
+  integration (`<leader>gg`).
+- A **Nerd Font** in your terminal — for the statusline and file-type icons.
+- `ripgrep` *(optional)* — for Telescope's text search.
 
-## Installazione
+## Installation
 
-Clona la repo nella cartella di config di Neovim:
+Clone the repo into Neovim's config folder:
 
 ```bash
 git clone git@github.com:sombreror/nvim-config.git ~/.config/nvim
 ```
 
-> Se la cartella `~/.config/nvim` esiste già, fanne prima un backup:
+> If `~/.config/nvim` already exists, back it up first:
 > ```bash
 > mv ~/.config/nvim ~/.config/nvim.bak
 > ```
 
-Al primo avvio di `nvim`, `vim.pack` scaricherà automaticamente i plugin
-secondo il lock file.
+On the first launch of `nvim`, `vim.pack` will automatically download the
+plugins according to the lock file.
 
-## Struttura
+## Structure
 
 ```
 .
-├── init.lua                 # Punto d'ingresso
-├── nvim-pack-lock.json      # Versioni pinnate dei plugin
+├── init.lua                 # Entry point
+├── nvim-pack-lock.json      # Pinned plugin versions
 └── lua/
     ├── config/
-    │   ├── options.lua       # Opzioni di Neovim
-    │   └── keymaps.lua       # Scorciatoie da tastiera
+    │   ├── options.lua       # Neovim options
+    │   └── keymaps.lua       # Keyboard shortcuts
     └── plugins/
-        └── init.lua          # Definizione dei plugin
+        └── init.lua          # Plugin definitions and setup
 ```
 
-Il leader è impostato su `<Spazio>`.
+The leader key is set to `<Space>`.
 
-## SOON — cose da aggiungere
+## Features
 
-Personalizzazioni grafiche e di UX in arrivo:
+What is currently configured.
 
-- [ ] **lualine** => barra di stato in fondo (modalità, branch git, diagnostica)
-- [ ] **nvim-web-devicons** => icone per tipo di file (serve a lualine/explorer)
-- [ ] **bufferline** => schede dei file aperti in alto
-- [ ] **file explorer** => neo-tree oppure oil.nvim
-- [ ] **which-key** => popup con i tasti disponibili
-- [ ] **indent-blankline** => guide di indentazione
-- [ ] **rainbow-delimiters** => parentesi colorate per livello
-- [ ] **nvim-colorizer** => mostra i colori `#hex` / `rgb()` inline (utile per CSS)
-- [ ] **dashboard** => schermata d'avvio (alpha / snacks)
-- [ ] **satellite / scrollbar** => barra di scorrimento con segni git
-- [ ] **todo-comments** => evidenzia `TODO:` / `FIXME:`
-- [ ] **trouble** => pannello ordinato di errori/diagnostica
+### Plugins
 
-> Nota: `noice.nvim` (cmdline/notifiche ridisegnate) NON va aggiunto =>
-> va in conflitto con l'UI nativa `vim._core.ui2` già usata in `init.lua`.
+- **nvim-lspconfig** + **mason** + **mason-lspconfig** => install and enable the
+  language servers.
+- **blink.cmp** + **friendly-snippets** => autocompletion and snippets.
+- **tree-sitter-manager** => Treesitter parsers (auto-installed).
+- **nvim-autopairs** => auto-closes brackets and quotes.
+- **gitsigns** => git signs in the gutter + blame.
+- **lazygit.nvim** => opens lazygit inside Neovim.
+- **tokyonight** => color scheme (`night` style, matched to the terminal).
+- **lualine** + **nvim-web-devicons** => statusline with mode, git branch,
+  diagnostics, selection/search counters and file icons.
+- **telescope** => fuzzy finder for files and text *(installed — key mappings
+  coming soon)*.
 
-## Sincronizzare le modifiche
+### Language servers
 
-Dopo aver modificato il config:
+Auto-installed via Mason: `lua_ls`, `pyright`, `ts_ls`, `intelephense`,
+`html`, `cssls`, `emmet_language_server`, `eslint`, `jsonls`.
+
+### Keymaps
+
+| Key | Action |
+| --- | --- |
+| `<leader>gg` | Open LazyGit |
+| `<leader>r` | Vertical split |
+| `<C-h>` / `<C-j>` / `<C-k>` / `<C-l>` | Move to the split left / down / up / right |
+| `<Esc>` | Clear search highlight |
+| `p` *(visual)* | Paste without overwriting the register |
+
+## Roadmap
+
+Graphics and UX customizations still to add:
+
+- [ ] **bufferline** => tabs for the open files at the top
+- [ ] **file explorer** => neo-tree or oil.nvim
+- [ ] **which-key** => popup with the available keys
+- [ ] **indent-blankline** => indentation guides
+- [ ] **rainbow-delimiters** => brackets colored by level
+- [ ] **nvim-colorizer** => show `#hex` / `rgb()` colors inline (handy for CSS)
+- [ ] **dashboard** => start screen (alpha / snacks)
+- [ ] **satellite / scrollbar** => scrollbar with git signs
+- [ ] **todo-comments** => highlight `TODO:` / `FIXME:`
+- [ ] **trouble** => tidy panel for errors/diagnostics
+- [ ] **telescope keymaps** => bind `find_files` / `live_grep` / `buffers`
+
+> Note: `noice.nvim` (redesigned cmdline/notifications) must NOT be added =>
+> it conflicts with the native `vim._core.ui2` UI already used in `init.lua`.
+
+## Syncing changes
+
+After editing the config:
 
 ```bash
 git add -A
-git commit -m "descrizione delle modifiche"
+git commit -m "describe your changes"
 git push
 ```
 
-Su un altro dispositivo, prima di lavorare aggiorna con:
+On another machine, update before working with:
 
 ```bash
 git pull
