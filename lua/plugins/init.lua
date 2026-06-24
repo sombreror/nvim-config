@@ -1,17 +1,18 @@
 vim.pack.add({
-    "https://github.com/neovim/nvim-lspconfig",          -- => config pronte per ogni server lsp
-    "https://github.com/mason-org/mason.nvim",           -- => installa i server ; gestore pacchetti
-    "https://github.com/mason-org/mason-lspconfig.nvim", -- => ponte mason <-> lsp ; auto-enable
-    { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") }, -- => completamento
-    "https://github.com/rafamadriz/friendly-snippets",   -- => snippet pronti
+    "https://github.com/neovim/nvim-lspconfig",          -- => ready-made config for every lsp server
+    "https://github.com/mason-org/mason.nvim",           -- => installs the servers ; package manager
+    "https://github.com/mason-org/mason-lspconfig.nvim", -- => bridge mason <-> lsp ; auto-enable
+    { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") }, -- => completion
+    "https://github.com/rafamadriz/friendly-snippets",   -- => ready-made snippets
     { src = "https://github.com/romus204/tree-sitter-manager.nvim" },
-    "https://github.com/windwp/nvim-autopairs",          -- => chiude da sola () [] {} "" ''
-    "https://github.com/lewis6991/gitsigns.nvim",        -- => segni git nel margine + blame
-    "https://github.com/nvim-lua/plenary.nvim",          -- => libreria utility (richiesta da lazygit.nvim)
-    "https://github.com/kdheepak/lazygit.nvim",          -- => apre lazygit dentro nvim
-    "https://github.com/folke/tokyonight.nvim",          -- => tema Tokyo Night ; abbinato al terminale
-    "https://github.com/nvim-tree/nvim-web-devicons",    -- => dependency for lualine 
-    "https://github.com/nvim-lualine/lualine.nvim",      -- => lualine pl: status bar 
+    "https://github.com/windwp/nvim-autopairs",          -- => auto-closes () [] {} "" ''
+    "https://github.com/lewis6991/gitsigns.nvim",        -- => git signs in the gutter + blame
+    "https://github.com/nvim-lua/plenary.nvim",          -- => utility library (required by lazygit.nvim)
+    "https://github.com/kdheepak/lazygit.nvim",          -- => opens lazygit inside nvim
+    "https://github.com/folke/tokyonight.nvim",          -- => Tokyo Night theme ; matched to the terminal
+    "https://github.com/nvim-tree/nvim-web-devicons",    -- => filetype icons (needed by lualine ; requires a Nerd Font)
+    "https://github.com/nvim-lualine/lualine.nvim",      -- => lualine: status bar
+    "https://github.com/nvim-telescope/telescope.nvim",  -- => fuzzy finder to search files and text
 })
 
 
@@ -20,24 +21,24 @@ vim.pack.add({
 require("mason").setup()
 
 
--- BLINK => solo le cose NON di default --
+-- BLINK => only the NON-default stuff --
 require("blink.cmp").setup({
     keymap = {preset = "super-tab"},
     completion = {
-        documentation = { auto_show = true }, -- => mostra i docs da solo
-        ghost_text = { enabled = true },      -- => anteprima grigia inline
+        documentation = { auto_show = true }, -- => shows the docs automatically
+        ghost_text = { enabled = true },      -- => inline grey preview
     },
-    signature = { enabled = true },         -- => aiuto sui parametri delle funzioni
+    signature = { enabled = true },         -- => help on function parameters
 })
 
--- LSP Config -- 
+-- LSP Config --
 vim.diagnostic.config({
    virtual_text = true, -- => error text
-   severity_sort = true, -- => livello del problema
+   severity_sort = true, -- => severity of the problem
 })
 
 
--- LUA => "vim" globale ; niente warning --
+-- LUA => "vim" global ; no warnings --
 vim.lsp.config("lua_ls", {
   settings = { Lua = { diagnostics = { globals = { "vim" } } } },
 })
@@ -56,14 +57,28 @@ require("gitsigns").setup()
 
 
 
--- AUTOPAIRS => chiude in automatico parentesi e virgolette --
+-- AUTOPAIRS => auto-closes brackets and quotes --
 require("nvim-autopairs").setup({
-    check_ts = true,   -- => usa treesitter ; non chiude se non ha senso nel contesto
+    check_ts = true,   -- => uses treesitter ; doesn't close when it makes no sense in context
 })
 
 
 
--- MASON-LSPCONFIG => va per ULTIMO ; installa + abilita --
+
+-- TELESCOPE => to continue--
+require("telescope").setup()
+
+
+
+
+
+
+
+
+
+
+
+-- MASON-LSPCONFIG => goes LAST ; installs + enables --
 require("mason-lspconfig").setup({
   ensure_installed = {
     "lua_ls",                 -- => lua
@@ -72,16 +87,16 @@ require("mason-lspconfig").setup({
     "intelephense",           -- => php
     "html",                   -- => html
     "cssls",                  -- => css + scss + less
-    "emmet_language_server",  -- => emmet ; abbreviazioni html/css
+    "emmet_language_server",  -- => emmet ; html/css abbreviations
     "eslint",                 -- => linting js/ts
-    "jsonls",                 -- => json ; package.json ecc
+    "jsonls",                 -- => json ; package.json etc
   },
 })
 
 
--- Theme And Various UI Config-- 
+-- Theme And Various UI Config--
 require("tokyonight").setup({
-    style = "night",         -- => night / storm / moon / day ; "night" = stesso sfondo del terminale
+    style = "night",         -- => night / storm / moon / day ; "night" = same background as the terminal
 })
 
 vim.cmd.colorscheme("tokyonight")
@@ -99,6 +114,21 @@ require("lualine").setup({
         lualine_z = { "searchcount", "location" },
     },
 })
+
+
+-- OBSIDIAN NVIM => to setup -- 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

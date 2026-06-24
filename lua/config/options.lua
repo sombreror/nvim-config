@@ -48,7 +48,7 @@ vim.opt.tabstop = 4 -- visual width of a TAB
 vim.opt.showmode = false
 
 -- keep some context around the cursor while scrolling
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 999 -- => 999 so the cursor when navigating is always in the center 
 
 -- preserve indentation when long lines wrap
 vim.opt.breakindent = true

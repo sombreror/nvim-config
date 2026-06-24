@@ -1,28 +1,15 @@
--- Cache dei moduli Lua => load more fast
+-- Cache Lua modules => load faster
 vim.loader.enable()
 
--- Leader => spazio 
+-- Leader => space
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Punto d'ingresso: carica i moduli del config
+-- Entry point: load the config modules
 require("config.options")
 require("config.keymaps")
 require("plugins")
 
 
-
-
--- UI sperimentale => cmdline e messaggi ridisegnati, niente "Press ENTER"
+-- experimental UI => redesigned cmdline and messages, no "Press ENTER"
 require('vim._core.ui2').enable({})
-
-
-
-
-
-
-
-
-
-
-
