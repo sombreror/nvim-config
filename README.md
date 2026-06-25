@@ -1,23 +1,23 @@
 # nvim-config
 
-My personal [Neovim](https://neovim.io/) configuration.
+My personal [Neovim](https://neovim.io/) configuration — fast, native, and
+reproducible.
 
-It uses the native package manager **`vim.pack`** — plugins are pinned in
-[`nvim-pack-lock.json`](./nvim-pack-lock.json), so you get the exact same
-versions on every machine.
+It is built around Neovim's native package manager **`vim.pack`**. Every plugin
+is pinned in [`nvim-pack-lock.json`](./nvim-pack-lock.json), so the exact same
+versions are restored on any machine. The leader key is `<Space>`.
 
 ## Requirements
 
-- **Neovim 0.12+**, required for `vim.pack` and the experimental
-  `vim._core.ui2` UI.
-- `git`
-- [`lazygit`](https://github.com/jesseduffield/lazygit) — for the in-editor git
-  integration (`<leader>gg`).
-- A **Nerd Font** in your terminal — for the statusline and file-type icons.
-- `ripgrep` — for Telescope's text search (`live_grep`).
-- `make` + a C compiler (`gcc`) — to build `telescope-fzf-native` on first
-  install.
-- `fd` *(optional)* — faster file finding for Telescope.
+| Tool | Why |
+| --- | --- |
+| **Neovim 0.12+** | Required for `vim.pack` and the experimental `vim._core.ui2` UI |
+| `git` | Plugin downloads and version control |
+| [`lazygit`](https://github.com/jesseduffield/lazygit) | In-editor git UI (`<leader>gg`) |
+| **Nerd Font** | Statusline and file-type icons |
+| `ripgrep` | Telescope text search (`live_grep`) |
+| `make` + `gcc` | Build `telescope-fzf-native` once on install |
+| `fd` *(optional)* | Faster file finding for Telescope |
 
 ## Installation
 
@@ -32,92 +32,82 @@ git clone git@github.com:sombreror/nvim-config.git ~/.config/nvim
 > mv ~/.config/nvim ~/.config/nvim.bak
 > ```
 
-On the first launch of `nvim`, `vim.pack` will automatically download the
-plugins according to the lock file.
-
-`telescope-fzf-native` ships a C sorter that must be compiled once. After the
-plugins are downloaded, build it with:
+On the first launch of `nvim`, `vim.pack` downloads the plugins according to the
+lock file. Then build the Telescope C sorter once:
 
 ```bash
 make -C ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim
 ```
 
-Re-run this command whenever the plugin is updated.
+> Re-run that command whenever `telescope-fzf-native` is updated.
 
 ## Structure
 
 ```
 .
-├── init.lua                 # Entry point
-├── nvim-pack-lock.json      # Pinned plugin versions
+├── init.lua                  # Entry point — loads the modules below
+├── nvim-pack-lock.json       # Pinned plugin versions
 └── lua/
     ├── config/
-    │   ├── options.lua       # Neovim options
-    │   └── keymaps.lua       # Keyboard shortcuts
+    │   ├── options.lua        # Neovim options
+    │   ├── keymaps.lua        # Keyboard shortcuts
+    │   └── autocmd.lua        # Automatic editor behavior
     └── plugins/
-        └── init.lua          # Plugin definitions and setup
+        └── init.lua           # Plugin list and setup
 ```
 
-The leader key is set to `<Space>`.
+## Plugins
 
-## Features
-
-What is currently configured.
-
-### Plugins
-
-- **nvim-lspconfig** + **mason** + **mason-lspconfig** => install and enable the
+**LSP & completion**
+- **nvim-lspconfig** + **mason** + **mason-lspconfig** — install and enable the
   language servers.
-- **blink.cmp** + **friendly-snippets** => autocompletion and snippets.
-- **tree-sitter-manager** => Treesitter parsers (auto-installed).
-- **nvim-autopairs** => auto-closes brackets and quotes.
-- **gitsigns** => git signs in the gutter + blame.
-- **lazygit.nvim** => opens lazygit inside Neovim.
-- **tokyonight** => color scheme (`night` style, matched to the terminal).
-- **lualine** + **nvim-web-devicons** => statusline with mode, git branch,
-  diagnostics, selection/search counters and file icons.
-- **telescope** + **telescope-fzf-native** => fuzzy finder for files, text and
+- **blink.cmp** + **friendly-snippets** — autocompletion and snippets.
+
+**Editing**
+- **tree-sitter-manager** — Treesitter parsers (auto-installed).
+- **nvim-autopairs** — auto-closes brackets and quotes.
+
+**Search & navigation**
+- **telescope** + **telescope-fzf-native** — fuzzy finder for files, text and
   git, with a native (C) sorter for faster, smarter matching.
 
-### Language servers
+**Git**
+- **gitsigns** — git signs in the gutter + blame.
+- **lazygit.nvim** — opens lazygit inside Neovim.
+
+**Appearance**
+- **tokyonight** — color scheme (`night` style, matched to the terminal).
+- **lualine** + **nvim-web-devicons** — statusline with mode, git branch,
+  diagnostics, selection/search counters and file icons.
+
+> `noice.nvim` must **not** be added — it conflicts with the native
+> `vim._core.ui2` UI already enabled in `init.lua`.
+
+## Language servers
 
 Auto-installed via Mason: `lua_ls`, `pyright`, `ts_ls`, `intelephense`,
 `html`, `cssls`, `emmet_language_server`, `eslint`, `jsonls`.
 
-### Keymaps
+## Editor behavior
+
+Automatic behavior configured in `autocmd.lua`:
+
+- Yanked (copied) text is briefly highlighted.
+
+## Keymaps
 
 | Key | Action |
 | --- | --- |
-| `<leader>ff` | Telescope: find files |
-| `<leader>fr` | Telescope: resume last picker |
-| `<leader>gs` | Telescope: git status |
-| `<leader>gc` | Telescope: git commits |
-| `<leader>gb` | Telescope: git branches |
+| `<leader>ff` | Telescope — find files |
+| `<leader>fr` | Telescope — resume last picker |
+| `<leader>gs` | Telescope — git status |
+| `<leader>gc` | Telescope — git commits |
+| `<leader>gb` | Telescope — git branches |
 | `<leader>gg` | Open LazyGit |
 | `<leader>r` | Vertical split |
 | `<C-h>` / `<C-j>` / `<C-k>` / `<C-l>` | Move to the split left / down / up / right |
 | `<Esc>` | Clear search highlight |
 | `p` *(visual)* | Paste without overwriting the register |
-
-## Roadmap
-
-Graphics and UX customizations still to add:
-
-- [ ] **bufferline** => tabs for the open files at the top
-- [ ] **file explorer** => neo-tree or oil.nvim
-- [ ] **which-key** => popup with the available keys
-- [ ] **indent-blankline** => indentation guides
-- [ ] **rainbow-delimiters** => brackets colored by level
-- [ ] **nvim-colorizer** => show `#hex` / `rgb()` colors inline (handy for CSS)
-- [ ] **dashboard** => start screen (alpha / snacks)
-- [ ] **satellite / scrollbar** => scrollbar with git signs
-- [ ] **todo-comments** => highlight `TODO:` / `FIXME:`
-- [ ] **trouble** => tidy panel for errors/diagnostics
-- [ ] **telescope** => add `live_grep` / `buffers` keymaps
-- [ ] **obsidian.nvim** => notes / vault integration (under evaluation)
-
-> Note: `noice.nvim` (redesigned cmdline/notifications) must NOT be added =>
-> it conflicts with the native `vim._core.ui2` UI already used in `init.lua`.
 
 ## Syncing changes
 
@@ -129,7 +119,7 @@ git commit -m "describe your changes"
 git push
 ```
 
-On another machine, update before working with:
+On another machine, pull before working:
 
 ```bash
 git pull
