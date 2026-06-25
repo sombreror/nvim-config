@@ -72,6 +72,11 @@ make -C ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim
 - **tree-sitter-manager** — Treesitter parsers (auto-installed).
 - **nvim-autopairs** — auto-closes brackets and quotes.
 - **conform.nvim** — formats code on save, one formatter per language.
+- **mini.surround** — add / change / delete surrounding pairs (`sa` / `sd` /
+  `sr`).
+- **mini.move** — move lines and visual selections with `Alt+hjkl`.
+- **todo-comments.nvim** — highlights `TODO` / `FIXME` / `HACK` / `WARN` /
+  `NOTE` and lists them with Telescope (`<leader>ft`).
 
 **Search & navigation**
 - **telescope** + **telescope-fzf-native** — fuzzy finder for files, text and
@@ -112,6 +117,7 @@ Automatic behavior configured in `autocmd.lua`:
 
 - Yanked (copied) text is briefly highlighted.
 - On save, the buffer is formatted by conform (see [Formatters](#formatters)).
+- Comment leaders are **not** auto-continued when you start a new line.
 
 ## Keymaps
 
@@ -119,6 +125,10 @@ Automatic behavior configured in `autocmd.lua`:
 | --- | --- |
 | `<leader>ff` | Telescope — find files |
 | `<leader>fr` | Telescope — resume last picker |
+| `<leader>fb` | Telescope — buffers |
+| `<leader>ft` | Telescope — TODO comments |
+| `gd` | LSP — go to definition |
+| `<leader>e` | Show diagnostic under cursor |
 | `<leader>gs` | Telescope — git status |
 | `<leader>gc` | Telescope — git commits |
 | `<leader>gb` | Telescope — git branches |
