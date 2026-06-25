@@ -15,7 +15,6 @@ vim.pack.add({
 	"https://github.com/nvim-telescope/telescope.nvim", -- => fuzzy finder to search files and text
 	"https://github.com/nvim-telescope/telescope-fzf-native.nvim", -- => faster telescope and research of files
 	"https://github.com/stevearc/conform.nvim", -- => better formatter for code + more options
-	"https://github.com/obsidian-nvim/obsidian.nvim", -- => obsidian plugin for nvim
 })
 
 -- MASON --

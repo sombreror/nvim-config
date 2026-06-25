@@ -66,6 +66,7 @@ make -C ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim
 **Editing**
 - **tree-sitter-manager** — Treesitter parsers (auto-installed).
 - **nvim-autopairs** — auto-closes brackets and quotes.
+- **conform.nvim** — formats code on save, one formatter per language.
 
 **Search & navigation**
 - **telescope** + **telescope-fzf-native** — fuzzy finder for files, text and
@@ -88,11 +89,24 @@ make -C ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim
 Auto-installed via Mason: `lua_ls`, `pyright`, `ts_ls`, `intelephense`,
 `html`, `cssls`, `emmet_language_server`, `eslint`, `jsonls`.
 
+## Formatters
+
+Run on save by **conform.nvim** (formatters installed via Mason). Fast languages
+format synchronously; PHP runs asynchronously so saves stay instant.
+
+| Language | Formatter |
+| --- | --- |
+| Lua | `stylua` |
+| Python | `black` |
+| JS / TS / JSON / HTML / CSS | `prettierd` |
+| PHP | `php-cs-fixer` *(async — needs a `composer.json` in the project)* |
+
 ## Editor behavior
 
 Automatic behavior configured in `autocmd.lua`:
 
 - Yanked (copied) text is briefly highlighted.
+- On save, the buffer is formatted by conform (see [Formatters](#formatters)).
 
 ## Keymaps
 
