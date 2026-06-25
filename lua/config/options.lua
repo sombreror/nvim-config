@@ -5,12 +5,11 @@ vim.opt.relativenumber = true -- faster movement with hjkl
 -- clipboard --
 vim.opt.clipboard = "unnamedplus"
 
--- Theme -- 
+-- Theme --
 vim.opt.termguicolors = true
 
 -- keep undo history even after closing files
 vim.opt.undofile = true
-
 
 -- search --
 vim.opt.ignorecase = true -- ignore uppercase/lowercase
@@ -39,10 +38,7 @@ vim.opt.tabstop = 4 -- visual width of a TAB
 vim.opt.showmode = false
 
 -- keep some context around the cursor while scrolling
-vim.opt.scrolloff = 999 -- => 999 so the cursor when navigating is always in the center 
+vim.opt.scrolloff = 999 -- => 999 so the cursor when navigating is always in the center
 
 -- preserve indentation when long lines wrap
 vim.opt.breakindent = true
-
-
-

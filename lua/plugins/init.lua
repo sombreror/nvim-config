@@ -1,182 +1,159 @@
 vim.pack.add({
-    "https://github.com/neovim/nvim-lspconfig",          -- => ready-made config for every lsp server
-    "https://github.com/mason-org/mason.nvim",           -- => installs the servers ; package manager
-    "https://github.com/mason-org/mason-lspconfig.nvim", -- => bridge mason <-> lsp ; auto-enable
-    { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") }, -- => completion
-    "https://github.com/rafamadriz/friendly-snippets",   -- => ready-made snippets
-    { src = "https://github.com/romus204/tree-sitter-manager.nvim" },
-    "https://github.com/windwp/nvim-autopairs",          -- => auto-closes () [] {} "" ''
-    "https://github.com/lewis6991/gitsigns.nvim",        -- => git signs in the gutter + blame
-    "https://github.com/nvim-lua/plenary.nvim",          -- => utility library (required by lazygit.nvim)
-    "https://github.com/kdheepak/lazygit.nvim",          -- => opens lazygit inside nvim
-    "https://github.com/folke/tokyonight.nvim",          -- => Tokyo Night theme ; matched to the terminal
-    "https://github.com/nvim-tree/nvim-web-devicons",    -- => filetype icons (needed by lualine ; requires a Nerd Font)
-    "https://github.com/nvim-lualine/lualine.nvim",      -- => lualine: status bar
-    "https://github.com/nvim-telescope/telescope.nvim",  -- => fuzzy finder to search files and text
-    "https://github.com/nvim-telescope/telescope-fzf-native.nvim", -- => faster telescope and research of files
-    "https://github.com/stevearc/conform.nvim",           -- => better formatter for code + more options 
+	"https://github.com/neovim/nvim-lspconfig", -- => ready-made config for every lsp server
+	"https://github.com/mason-org/mason.nvim", -- => installs the servers ; package manager
+	"https://github.com/mason-org/mason-lspconfig.nvim", -- => bridge mason <-> lsp ; auto-enable
+	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") }, -- => completion
+	"https://github.com/rafamadriz/friendly-snippets", -- => ready-made snippets
+	{ src = "https://github.com/romus204/tree-sitter-manager.nvim" },
+	"https://github.com/windwp/nvim-autopairs", -- => auto-closes () [] {} "" ''
+	"https://github.com/lewis6991/gitsigns.nvim", -- => git signs in the gutter + blame
+	"https://github.com/nvim-lua/plenary.nvim", -- => utility library (required by lazygit.nvim)
+	"https://github.com/kdheepak/lazygit.nvim", -- => opens lazygit inside nvim
+	"https://github.com/folke/tokyonight.nvim", -- => Tokyo Night theme ; matched to the terminal
+	"https://github.com/nvim-tree/nvim-web-devicons", -- => filetype icons (needed by lualine ; requires a Nerd Font)
+	"https://github.com/nvim-lualine/lualine.nvim", -- => lualine: status bar
+	"https://github.com/nvim-telescope/telescope.nvim", -- => fuzzy finder to search files and text
+	"https://github.com/nvim-telescope/telescope-fzf-native.nvim", -- => faster telescope and research of files
+	"https://github.com/stevearc/conform.nvim", -- => better formatter for code + more options
+	"https://github.com/obsidian-nvim/obsidian.nvim", -- => obsidian plugin for nvim
 })
-
-
 
 -- MASON --
 require("mason").setup()
 
-
 -- BLINK => only the NON-default stuff --
 require("blink.cmp").setup({
-    keymap = {preset = "super-tab"},
-    completion = {
-        documentation = { auto_show = true }, -- => shows the docs automatically
-        ghost_text = { enabled = true },      -- => inline grey preview
-    },
-    signature = { enabled = true },         -- => help on function parameters
+	keymap = { preset = "super-tab" },
+	completion = {
+		documentation = { auto_show = true }, -- => shows the docs automatically
+		ghost_text = { enabled = true }, -- => inline grey preview
+	},
+	signature = { enabled = true }, -- => help on function parameters
 })
 
 -- LSP Config --
 vim.diagnostic.config({
-   virtual_text = true, -- => error text
-   severity_sort = true, -- => severity of the problem
+	virtual_text = true, -- => error text
+	severity_sort = true, -- => severity of the problem
 })
-
 
 -- LUA => "vim" global ; no warnings --
 vim.lsp.config("lua_ls", {
-  settings = { Lua = { diagnostics = { globals = { "vim" } } } },
+	settings = { Lua = { diagnostics = { globals = { "vim" } } } },
 })
 
 -- tree-sitter-manager --
 require("tree-sitter-manager").setup({
-    auto_install = true,
-    ensure_installed = {
-        "lua", "python", "javascript", "php", "php_only",
-        "html", "css", "typescript", "json",
-    },
+	auto_install = true,
+	ensure_installed = {
+		"lua",
+		"python",
+		"javascript",
+		"php",
+		"php_only",
+		"html",
+		"css",
+		"typescript",
+		"json",
+	},
 })
 
 -- CONFORM => formatter on save --
 require("conform").setup({
-    formatters_by_ft = {
-        lua = { "stylua" },
-        python = { "black" },
-        php = { "php_cs_fixer" },
-        javascript = { "prettierd", "prettier", stop_after_first = true },
-        typescript = { "prettierd", "prettier", stop_after_first = true },
-        json = { "prettierd", "prettier", stop_after_first = true },
-        html = { "prettierd", "prettier", stop_after_first = true },
-        css = { "prettierd", "prettier", stop_after_first = true },
-        scss = { "prettierd", "prettier", stop_after_first = true },
-    },
-    -- fast filetypes: sync + instant ; php: async in the background (php-cs-fixer is slow)
-    format_on_save = function(bufnr)
-        if vim.bo[bufnr].filetype == "php" then return end   -- => skip sync for php
-        return { timeout_ms = 500, lsp_format = "fallback" }
-    end,
-    format_after_save = function(bufnr)
-        if vim.bo[bufnr].filetype == "php" then
-            return { lsp_format = "fallback" }               -- => php formatted afterwards, non-blocking
-        end
-    end,
+	formatters_by_ft = {
+		lua = { "stylua" },
+		python = { "black" },
+		php = { "php_cs_fixer" },
+		javascript = { "prettierd", "prettier", stop_after_first = true },
+		typescript = { "prettierd", "prettier", stop_after_first = true },
+		json = { "prettierd", "prettier", stop_after_first = true },
+		html = { "prettierd", "prettier", stop_after_first = true },
+		css = { "prettierd", "prettier", stop_after_first = true },
+		scss = { "prettierd", "prettier", stop_after_first = true },
+	},
+	-- fast filetypes: sync + instant ; php: async in the background (php-cs-fixer is slow)
+	format_on_save = function(bufnr)
+		if vim.bo[bufnr].filetype == "php" then
+			return
+		end -- => skip sync for php
+		return { timeout_ms = 500, lsp_format = "fallback" }
+	end,
+	format_after_save = function(bufnr)
+		if vim.bo[bufnr].filetype == "php" then
+			return { lsp_format = "fallback" } -- => php formatted afterwards, non-blocking
+		end
+	end,
 })
 
-
-
--- gitsigns -- 
+-- gitsigns --
 require("gitsigns").setup()
-
-
 
 -- AUTOPAIRS => auto-closes brackets and quotes --
 require("nvim-autopairs").setup({
-    check_ts = true,   -- => uses treesitter ; doesn't close when it makes no sense in context
+	check_ts = true, -- => uses treesitter ; doesn't close when it makes no sense in context
 })
-
-
-
 
 -- TELESCOPE--
 require("telescope").setup({
-    defaults = {
-        sorting_strategy = "ascending",
-        -- initial_mode = "normal", -- => to change if it not right for me -- 
-        layout_config = { prompt_position = "top" },
-        file_ignore_patterns = { "node_modules", ".git/", "vendor" },
-        mappings = {
-            i = {
-                ["<C-j>"] = "move_selection_next",
-                ["<C-k>"] = "move_selection_previous",
-            },
-        },
-    },
-    pickers = {
-        find_files = { hidden = true },
-    },
-    extensions = {
-        fzf = {
-            fuzzy = true,
-            override_generic_sorter = true,
-            override_file_sorter = true,
-            case_mode = "smart_case",
-        },
-    },
+	defaults = {
+		sorting_strategy = "ascending",
+		-- initial_mode = "normal", -- => to change if it not right for me --
+		layout_config = { prompt_position = "top" },
+		file_ignore_patterns = { "node_modules", ".git/", "vendor" },
+		mappings = {
+			i = {
+				["<C-j>"] = "move_selection_next",
+				["<C-k>"] = "move_selection_previous",
+			},
+		},
+	},
+	pickers = {
+		find_files = { hidden = true },
+	},
+	extensions = {
+		fzf = {
+			fuzzy = true,
+			override_generic_sorter = true,
+			override_file_sorter = true,
+			case_mode = "smart_case",
+		},
+	},
 })
 
+-- LOAD => load_extension fzf --
 require("telescope").load_extension("fzf")
-
-
-
 
 -- MASON-LSPCONFIG => goes LAST ; installs + enables --
 require("mason-lspconfig").setup({
-  ensure_installed = {
-    "lua_ls",                 -- => lua
-    "pyright",                -- => python
-    "ts_ls",                  -- => javascript + typescript
-    "intelephense",           -- => php
-    "html",                   -- => html
-    "cssls",                  -- => css + scss + less
-    "emmet_language_server",  -- => emmet ; html/css abbreviations
-    "eslint",                 -- => linting js/ts
-    "jsonls",                 -- => json ; package.json etc
-  },
+	ensure_installed = {
+		"lua_ls", -- => lua
+		"pyright", -- => python
+		"ts_ls", -- => javascript + typescript
+		"intelephense", -- => php
+		"html", -- => html
+		"cssls", -- => css + scss + less
+		"emmet_language_server", -- => emmet ; html/css abbreviations
+		"eslint", -- => linting js/ts
+		"jsonls", -- => json ; package.json etc
+	},
 })
-
 
 -- Theme And Various UI Config--
 require("tokyonight").setup({
-    style = "night",         -- => night / storm / moon / day ; "night" = same background as the terminal
+	style = "night", -- => night / storm / moon / day ; "night" = same background as the terminal
 })
 
 vim.cmd.colorscheme("tokyonight")
 
-
--- LUALINE => status bar  -- 
+-- LUALINE => status bar  --
 require("lualine").setup({
-    options = {
-        theme = "tokyonight",
-        icons_enabled = true,
-        globalstatus = true,
-    },
-    sections = {
-        lualine_y = { "selectioncount", "progress" },
-        lualine_z = { "searchcount", "location" },
-    },
+	options = {
+		theme = "tokyonight",
+		icons_enabled = true,
+		globalstatus = true,
+	},
+	sections = {
+		lualine_y = { "selectioncount", "progress" },
+		lualine_z = { "searchcount", "location" },
+	},
 })
-
-
--- OBSIDIAN NVIM => to setup -- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
