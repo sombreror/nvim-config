@@ -7,6 +7,11 @@ It is built around Neovim's native package manager **`vim.pack`**. Every plugin
 is pinned in [`nvim-pack-lock.json`](./nvim-pack-lock.json), so the exact same
 versions are restored on any machine. The leader key is `<Space>`.
 
+> Big thanks to [**kickstart.nvim**](https://github.com/nvim-lua/kickstart.nvim) —
+> it was an invaluable guide for learning how a Neovim config is structured and
+> where a lot of the ideas here come from. A great starting point if you want to
+> build your own.
+
 ## Requirements
 
 | Tool | Why |
