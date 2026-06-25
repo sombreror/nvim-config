@@ -13,7 +13,8 @@ vim.pack.add({
     "https://github.com/nvim-tree/nvim-web-devicons",    -- => filetype icons (needed by lualine ; requires a Nerd Font)
     "https://github.com/nvim-lualine/lualine.nvim",      -- => lualine: status bar
     "https://github.com/nvim-telescope/telescope.nvim",  -- => fuzzy finder to search files and text
-    "https://github.com/nvim-telescope/telescope-fzf-native.nvim", -- => motore di matching in C, più veloce
+    "https://github.com/nvim-telescope/telescope-fzf-native.nvim", -- => faster telescope and research of files
+    "https://github.com/stevearc/conform.nvim",           -- => better formatter for code + more options 
 })
 
 
@@ -52,6 +53,33 @@ require("tree-sitter-manager").setup({
         "html", "css", "typescript", "json",
     },
 })
+
+-- CONFORM => formatter on save --
+require("conform").setup({
+    formatters_by_ft = {
+        lua = { "stylua" },
+        python = { "black" },
+        php = { "php_cs_fixer" },
+        javascript = { "prettierd", "prettier", stop_after_first = true },
+        typescript = { "prettierd", "prettier", stop_after_first = true },
+        json = { "prettierd", "prettier", stop_after_first = true },
+        html = { "prettierd", "prettier", stop_after_first = true },
+        css = { "prettierd", "prettier", stop_after_first = true },
+        scss = { "prettierd", "prettier", stop_after_first = true },
+    },
+    -- fast filetypes: sync + instant ; php: async in the background (php-cs-fixer is slow)
+    format_on_save = function(bufnr)
+        if vim.bo[bufnr].filetype == "php" then return end   -- => skip sync for php
+        return { timeout_ms = 500, lsp_format = "fallback" }
+    end,
+    format_after_save = function(bufnr)
+        if vim.bo[bufnr].filetype == "php" then
+            return { lsp_format = "fallback" }               -- => php formatted afterwards, non-blocking
+        end
+    end,
+})
+
+
 
 -- gitsigns -- 
 require("gitsigns").setup()
