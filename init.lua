@@ -8,7 +8,9 @@ vim.g.maplocalleader = ' '
 -- Entry point: load the config modules
 require("config.options")
 require("config.keymaps")
+require("config.autocmd")
 require("plugins")
+
 
 
 -- experimental UI => redesigned cmdline and messages, no "Press ENTER"
