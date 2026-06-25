@@ -14,7 +14,10 @@ versions on every machine.
 - [`lazygit`](https://github.com/jesseduffield/lazygit) — for the in-editor git
   integration (`<leader>gg`).
 - A **Nerd Font** in your terminal — for the statusline and file-type icons.
-- `ripgrep` *(optional)* — for Telescope's text search.
+- `ripgrep` — for Telescope's text search (`live_grep`).
+- `make` + a C compiler (`gcc`) — to build `telescope-fzf-native` on first
+  install.
+- `fd` *(optional)* — faster file finding for Telescope.
 
 ## Installation
 
@@ -31,6 +34,15 @@ git clone git@github.com:sombreror/nvim-config.git ~/.config/nvim
 
 On the first launch of `nvim`, `vim.pack` will automatically download the
 plugins according to the lock file.
+
+`telescope-fzf-native` ships a C sorter that must be compiled once. After the
+plugins are downloaded, build it with:
+
+```bash
+make -C ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim
+```
+
+Re-run this command whenever the plugin is updated.
 
 ## Structure
 
@@ -64,8 +76,8 @@ What is currently configured.
 - **tokyonight** => color scheme (`night` style, matched to the terminal).
 - **lualine** + **nvim-web-devicons** => statusline with mode, git branch,
   diagnostics, selection/search counters and file icons.
-- **telescope** => fuzzy finder for files and text *(installed — key mappings
-  coming soon)*.
+- **telescope** + **telescope-fzf-native** => fuzzy finder for files, text and
+  git, with a native (C) sorter for faster, smarter matching.
 
 ### Language servers
 
@@ -76,6 +88,11 @@ Auto-installed via Mason: `lua_ls`, `pyright`, `ts_ls`, `intelephense`,
 
 | Key | Action |
 | --- | --- |
+| `<leader>ff` | Telescope: find files |
+| `<leader>fr` | Telescope: resume last picker |
+| `<leader>gs` | Telescope: git status |
+| `<leader>gc` | Telescope: git commits |
+| `<leader>gb` | Telescope: git branches |
 | `<leader>gg` | Open LazyGit |
 | `<leader>r` | Vertical split |
 | `<C-h>` / `<C-j>` / `<C-k>` / `<C-l>` | Move to the split left / down / up / right |
@@ -96,7 +113,8 @@ Graphics and UX customizations still to add:
 - [ ] **satellite / scrollbar** => scrollbar with git signs
 - [ ] **todo-comments** => highlight `TODO:` / `FIXME:`
 - [ ] **trouble** => tidy panel for errors/diagnostics
-- [ ] **telescope keymaps** => bind `find_files` / `live_grep` / `buffers`
+- [ ] **telescope** => add `live_grep` / `buffers` keymaps
+- [ ] **obsidian.nvim** => notes / vault integration (under evaluation)
 
 > Note: `noice.nvim` (redesigned cmdline/notifications) must NOT be added =>
 > it conflicts with the native `vim._core.ui2` UI already used in `init.lua`.
