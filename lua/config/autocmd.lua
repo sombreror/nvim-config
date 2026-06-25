@@ -30,3 +30,12 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		vim.fn.winrestview(save)
 	end,
 })
+
+-- stop auto-continuing comments on a new line => r (Enter) and o (o/O) --
+vim.api.nvim_create_autocmd("FileType", {
+	desc = "Disable comment continuation on new line",
+	group = vim.api.nvim_create_augroup("no-comment-continuation", { clear = true }),
+	callback = function()
+		vim.opt_local.formatoptions:remove({ "r", "o" })
+	end,
+})

@@ -37,6 +37,14 @@
       "rev": "2a6940af80375532e5e9e7c1f2fc6319a1b7a69d",
       "src": "https://github.com/mason-org/mason.nvim"
     },
+    "mini.move": {
+      "rev": "b9e452f9c83565a1520e14f7531632160f3b0170",
+      "src": "https://github.com/nvim-mini/mini.move"
+    },
+    "mini.surround": {
+      "rev": "a2f644f3759edd3d3f8b6a6d55378408bfe6d290",
+      "src": "https://github.com/nvim-mini/mini.surround"
+    },
     "nvim-autopairs": {
       "rev": "7b9923abad60b903ece7c52940e1321d39eccc79",
       "src": "https://github.com/windwp/nvim-autopairs"
@@ -60,6 +68,10 @@
     "telescope.nvim": {
       "rev": "427b576c16792edad01a92b89721d923c19ad60f",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
+    },
+    "todo-comments.nvim": {
+      "rev": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",
+      "src": "https://github.com/folke/todo-comments.nvim"
     },
     "tokyonight.nvim": {
       "rev": "cdc07ac78467a233fd62c493de29a17e0cf2b2b6",

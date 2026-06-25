@@ -15,6 +15,9 @@ vim.pack.add({
 	"https://github.com/nvim-telescope/telescope.nvim", -- => fuzzy finder to search files and text
 	"https://github.com/nvim-telescope/telescope-fzf-native.nvim", -- => faster telescope and research of files
 	"https://github.com/stevearc/conform.nvim", -- => better formatter for code + more options
+	"https://github.com/nvim-mini/mini.surround", -- => help for "", (), '', {}, []
+	"https://github.com/nvim-mini/mini.move", -- => movement alt+hjkl for moving lines in visual and normal mode
+	"https://github.com/folke/todo-comments.nvim", -- => TODO and all types of comments\
 })
 
 -- MASON --
@@ -92,6 +95,21 @@ require("nvim-autopairs").setup({
 	check_ts = true, -- => uses treesitter ; doesn't close when it makes no sense in context
 })
 
+-- MINI.MOVE => alt+hjkl--
+require("mini.move").setup() --
+
+-- MINI.SURROUND --
+-- sa{motion}{char} => ADD surround       e.g. saiw)  -> (word)
+-- sd{char}         => DELETE surround     e.g. sd"    -> removes the " "
+-- sr{old}{new}     => REPLACE surround    e.g. sr)]   -> from () to []
+-- sf{char} / sF    => FIND to the right / to the left
+-- sh{char}         => HIGHLIGHT the surround
+-- suffix n / l     => act on the next / previous one   e.g. sdn) sdl)
+-- (in Visual: select then press sa{char})
+require("mini.surround").setup({
+	search_method = "cover_or_next", -- => acts even if the cursor is before the target, not only inside
+})
+
 -- TELESCOPE--
 require("telescope").setup({
 	defaults = {
@@ -156,3 +174,9 @@ require("lualine").setup({
 		lualine_z = { "searchcount", "location" },
 	},
 })
+
+-- TODO COMMENTS --
+-- highlights keywords in comments: TODO: FIXME: HACK: WARN: PERF: NOTE: TEST:
+-- :TodoTelescope  => fuzzy list of all comments in the project (mapped to <leader>ft)
+-- :TodoQuickFix   => send them to the quickfix list
+require("todo-comments").setup()

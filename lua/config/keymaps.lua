@@ -29,7 +29,14 @@ vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Fas
 vim.keymap.set("n", "<leader>fr", "<cmd>Telescope resume<CR>", { desc = "Open the last picker you were in" })
 vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Open Telescope buffers" })
 
+-- TELESCOPE TODO --
+vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Open TodoTelescope to search TODO comments" })
+
 -- TELESCOPE GIT COMMANDS --
 vim.keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "Open with Telescope git_status" })
 vim.keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "Open with Telescope git_commits" })
 vim.keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", { desc = "Open with Telescope git_branches" })
+
+-- LSP --
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic under cursor" })
