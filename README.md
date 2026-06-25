@@ -8,7 +8,7 @@ versions on every machine.
 
 ## Requirements
 
-- **Neovim 0.12+** (nightly), required for `vim.pack` and the experimental
+- **Neovim 0.12+**, required for `vim.pack` and the experimental
   `vim._core.ui2` UI.
 - `git`
 - [`lazygit`](https://github.com/jesseduffield/lazygit) — for the in-editor git
