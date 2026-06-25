@@ -13,6 +13,7 @@ vim.pack.add({
     "https://github.com/nvim-tree/nvim-web-devicons",    -- => filetype icons (needed by lualine ; requires a Nerd Font)
     "https://github.com/nvim-lualine/lualine.nvim",      -- => lualine: status bar
     "https://github.com/nvim-telescope/telescope.nvim",  -- => fuzzy finder to search files and text
+    "https://github.com/nvim-telescope/telescope-fzf-native.nvim", -- => motore di matching in C, più veloce
 })
 
 
@@ -65,15 +66,34 @@ require("nvim-autopairs").setup({
 
 
 
--- TELESCOPE => to continue--
-require("telescope").setup()
+-- TELESCOPE--
+require("telescope").setup({
+    defaults = {
+        sorting_strategy = "ascending",
+        -- initial_mode = "normal", -- => to change if it not right for me -- 
+        layout_config = { prompt_position = "top" },
+        file_ignore_patterns = { "node_modules", ".git/", "vendor" },
+        mappings = {
+            i = {
+                ["<C-j>"] = "move_selection_next",
+                ["<C-k>"] = "move_selection_previous",
+            },
+        },
+    },
+    pickers = {
+        find_files = { hidden = true },
+    },
+    extensions = {
+        fzf = {
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = "smart_case",
+        },
+    },
+})
 
-
-
-
-
-
-
+require("telescope").load_extension("fzf")
 
 
 
