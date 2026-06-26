@@ -166,7 +166,8 @@ something looks off.
     ├── config/
     │   ├── options.lua        # Neovim options
     │   ├── keymaps.lua        # Keyboard shortcuts
-    │   └── autocmd.lua        # Automatic editor behavior
+    │   ├── autocmd.lua        # Automatic editor behavior
+    │   └── commands.lua       # Custom user commands (:ConfigUpdate)
     └── plugins/
         └── init.lua           # Plugin list and setup
 ```
@@ -290,9 +291,19 @@ Leader is `<Space>`.
 | `<Esc>` | Clear search highlight |
 | `p` *(visual)* | Paste without overwriting the register |
 
+## Commands
+
+Custom commands defined in `commands.lua`:
+
+| Command | What it does |
+| --- | --- |
+| `:ConfigUpdate` | Pull the latest config from git, right from inside Neovim |
+
 ## Syncing changes
 
-After editing the config:
+The whole point of this repo is that the config is the same on every machine.
+
+**After editing on one machine**, push your changes:
 
 ```bash
 git add -A
@@ -300,8 +311,28 @@ git commit -m "describe your changes"
 git push
 ```
 
-On another machine, pull before working:
+**On any other machine**, just run `:ConfigUpdate` from inside Neovim — no need
+to leave the editor or remember git commands:
+
+```vim
+:ConfigUpdate
+```
+
+It runs `git pull --rebase --autostash` against this repo, so it:
+
+- **never freezes the editor** — git runs asynchronously in the background;
+- **keeps your local edits safe** — uncommitted changes are auto-stashed before
+  the pull and restored after it (`--autostash`);
+- **tells you exactly what happened** — *already up to date*, *updated*, or the
+  git error, decided by comparing the commit hash before/after (so it works
+  whatever language git is set to).
+
+> After an update Neovim is still running the **old** config it loaded at
+> startup. **Restart Neovim** to apply the new version — `:restart` on Neovim
+> 0.11+, otherwise `:qa` and reopen.
+
+The equivalent from a terminal, if you prefer:
 
 ```bash
-git pull
+git -C ~/.config/nvim pull
 ```
