@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	end,
 })
 
--- trim all withspaces when after :w (saving a file) --
+-- trim trailing whitespace on :w (saving a file) --
 vim.api.nvim_create_autocmd("BufWritePre", {
 	desc = "Trim trailing whitespace on save",
 	group = vim.api.nvim_create_augroup("trim-whitespace", { clear = true }),
