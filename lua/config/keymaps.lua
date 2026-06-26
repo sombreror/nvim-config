@@ -28,7 +28,12 @@ vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "quick switch to the split below
 vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Fast Telescope find files" })
 vim.keymap.set("n", "<leader>fr", "<cmd>Telescope resume<CR>", { desc = "Open the last picker you were in" })
 vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Open Telescope buffers" })
-
+vim.keymap.set(
+	"n",
+	"<leader>fe",
+	"<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>",
+	{ desc = "Open Telescope file browser (current file dir)" }
+)
 -- TELESCOPE TODO --
 vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Open TodoTelescope to search TODO comments" })
 
@@ -40,3 +45,9 @@ vim.keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", { desc = "O
 -- LSP --
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic under cursor" })
+
+-- FORMAT (conform) => format then save --
+vim.keymap.set({ "n", "v" }, "<leader>cf", function()
+	require("conform").format({ async = false, lsp_format = "fallback" })
+	vim.cmd("write")
+end, { desc = "Format buffer/selection with conform, then save" })

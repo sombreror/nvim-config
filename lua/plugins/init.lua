@@ -14,6 +14,7 @@ vim.pack.add({
 	"https://github.com/nvim-lualine/lualine.nvim", -- => lualine: status bar
 	"https://github.com/nvim-telescope/telescope.nvim", -- => fuzzy finder to search files and text
 	"https://github.com/nvim-telescope/telescope-fzf-native.nvim", -- => faster telescope and research of files
+	"https://github.com/nvim-telescope/telescope-file-browser.nvim", -- => telescope file browser (like oil.nvim)
 	"https://github.com/stevearc/conform.nvim", -- => better formatter for code + more options
 	"https://github.com/nvim-mini/mini.surround", -- => help for "", (), '', {}, []
 	"https://github.com/nvim-mini/mini.move", -- => movement alt+hjkl for moving lines in visual and normal mode
@@ -66,25 +67,14 @@ require("conform").setup({
 		lua = { "stylua" },
 		python = { "black" },
 		php = { "php_cs_fixer" },
-		javascript = { "prettierd", "prettier", stop_after_first = true },
-		typescript = { "prettierd", "prettier", stop_after_first = true },
-		json = { "prettierd", "prettier", stop_after_first = true },
+		javascript = { "biome", "prettierd", "prettier", stop_after_first = true },
+		typescript = { "biome", "prettierd", "prettier", stop_after_first = true },
+		json = { "biome", "prettierd", "prettier", stop_after_first = true },
 		html = { "prettierd", "prettier", stop_after_first = true },
 		css = { "prettierd", "prettier", stop_after_first = true },
 		scss = { "prettierd", "prettier", stop_after_first = true },
 	},
-	-- fast filetypes: sync + instant ; php: async in the background (php-cs-fixer is slow)
-	format_on_save = function(bufnr)
-		if vim.bo[bufnr].filetype == "php" then
-			return
-		end -- => skip sync for php
-		return { timeout_ms = 500, lsp_format = "fallback" }
-	end,
-	format_after_save = function(bufnr)
-		if vim.bo[bufnr].filetype == "php" then
-			return { lsp_format = "fallback" } -- => php formatted afterwards, non-blocking
-		end
-	end,
+	-- no format on save: formatting is manual via <leader>cf
 })
 
 -- gitsigns --
@@ -139,6 +129,9 @@ require("telescope").setup({
 
 -- LOAD => load_extension fzf --
 require("telescope").load_extension("fzf")
+
+-- TELESCOPE => File Browser --
+require("telescope").load_extension("file_browser")
 
 -- MASON-LSPCONFIG => goes LAST ; installs + enables --
 require("mason-lspconfig").setup({
