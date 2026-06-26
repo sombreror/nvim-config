@@ -51,3 +51,6 @@ vim.keymap.set({ "n", "v" }, "<leader>cf", function()
 	require("conform").format({ async = false, lsp_format = "fallback" })
 	vim.cmd("write")
 end, { desc = "Format buffer/selection with conform, then save" })
+
+-- TERMINAL --> integrated terminal in nvim --
+vim.keymap.set("n", "<leader>t", "<cmd>terminal<CR>", { desc = "Open the terminal inside nvim" })
