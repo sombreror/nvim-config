@@ -22,11 +22,44 @@ versions are restored on any machine. The leader key is `<Space>`.
 | **Nerd Font** | Statusline and file-type icons |
 | `ripgrep` | Telescope text search (`live_grep`) |
 | `make` + `gcc` | Build `telescope-fzf-native` once on install |
+| **Node.js** | Required by `prettierd` and the JS/TS/JSON/HTML/CSS language servers |
 | `fd` *(optional)* | Faster file finding for Telescope |
 
 ## Installation
 
-Clone the repo into Neovim's config folder:
+Follow the steps in order. Every command you need is listed here.
+
+### 1. Install the system dependencies
+
+These must be on your `PATH` **before** launching Neovim.
+
+**Fedora** (this is the machine the config is used on):
+
+```bash
+sudo dnf install neovim git lazygit ripgrep fd-find gcc make nodejs
+```
+
+<details>
+<summary>Other systems</summary>
+
+```bash
+# Debian / Ubuntu
+sudo apt install neovim git ripgrep fd-find gcc make nodejs
+#   lazygit: see https://github.com/jesseduffield/lazygit#installation
+
+# macOS (Homebrew)
+brew install neovim git lazygit ripgrep fd gcc make node
+```
+</details>
+
+> **Neovim 0.12+ is required** (for `vim.pack` and the native `vim._core.ui2`
+> UI). If your package manager ships an older version, install a newer build
+> from <https://github.com/neovim/neovim/releases>.
+
+Also install a **[Nerd Font](https://www.nerdfonts.com/)** and select it in your
+terminal, otherwise the statusline and file-type icons render as boxes.
+
+### 2. Clone the repo
 
 ```bash
 git clone git@github.com:sombreror/nvim-config.git ~/.config/nvim
@@ -37,14 +70,42 @@ git clone git@github.com:sombreror/nvim-config.git ~/.config/nvim
 > mv ~/.config/nvim ~/.config/nvim.bak
 > ```
 
-On the first launch of `nvim`, `vim.pack` downloads the plugins according to the
-lock file. Then build the Telescope C sorter once:
+### 3. First launch — let plugins download
+
+```bash
+nvim
+```
+
+On the first launch `vim.pack` downloads every plugin at the exact versions
+pinned in [`nvim-pack-lock.json`](./nvim-pack-lock.json). Wait for it to finish,
+then quit with `:qa`.
+
+The language servers ([listed below](#language-servers)) and Treesitter parsers
+are installed **automatically** by Mason and `tree-sitter-manager` on this first
+run.
+
+### 4. Build the Telescope native sorter (once)
 
 ```bash
 make -C ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim
 ```
 
-> Re-run that command whenever `telescope-fzf-native` is updated.
+> Re-run this whenever `telescope-fzf-native` is updated.
+
+### 5. Install the formatters
+
+The formatters are **not** auto-installed. Open Neovim and run:
+
+```vim
+:MasonInstall stylua black prettierd biome php-cs-fixer
+```
+
+(See [Formatting](#formatting) for which language uses which.)
+
+### 6. Done
+
+Restart Neovim. Everything should now work — verify with `:checkhealth` if
+something looks off.
 
 ## Structure
 
@@ -71,7 +132,8 @@ make -C ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim
 **Editing**
 - **tree-sitter-manager** — Treesitter parsers (auto-installed).
 - **nvim-autopairs** — auto-closes brackets and quotes.
-- **conform.nvim** — formats code on save, one formatter per language.
+- **conform.nvim** — code formatting, one formatter per language (triggered
+  manually — see [Formatting](#formatting)).
 - **mini.surround** — add / change / delete surrounding pairs (`sa` / `sd` /
   `sr`).
 - **mini.move** — move lines and visual selections with `Alt+hjkl`.
@@ -81,6 +143,9 @@ make -C ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim
 **Search & navigation**
 - **telescope** + **telescope-fzf-native** — fuzzy finder for files, text and
   git, with a native (C) sorter for faster, smarter matching.
+- **telescope-file-browser** — browse *and* edit the filesystem from Telescope:
+  navigate directories and create / rename / move / delete files
+  (`<leader>fe`).
 
 **Git**
 - **gitsigns** — git signs in the gutter + blame.
@@ -99,40 +164,78 @@ make -C ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim
 Auto-installed via Mason: `lua_ls`, `pyright`, `ts_ls`, `intelephense`,
 `html`, `cssls`, `emmet_language_server`, `eslint`, `jsonls`.
 
-## Formatters
+> The `html` and `emmet_language_server` servers are also attached to `.php`
+> files, so HTML completion and Emmet abbreviations (e.g. `!`) work inside PHP
+> files with embedded HTML. PHP itself is still handled by `intelephense`.
 
-Run on save by **conform.nvim** (formatters installed via Mason). Fast languages
-format synchronously; PHP runs asynchronously so saves stay instant.
+## Formatting
+
+Handled by **conform.nvim** (formatters installed via Mason). Formatting is
+**not run on save** — it is triggered manually with `<leader>cf`, which formats
+the buffer (or the visual selection) and then writes the file. This keeps `:w`
+instant and lets you save without reformatting when you don't want to.
 
 | Language | Formatter |
 | --- | --- |
 | Lua | `stylua` |
 | Python | `black` |
-| JS / TS / JSON / HTML / CSS | `prettierd` |
-| PHP | `php-cs-fixer` *(async — needs a `composer.json` in the project)* |
+| JS / TS / JSON | `biome` *(falls back to `prettierd`)* |
+| HTML / CSS / SCSS | `prettierd` |
+| PHP | `php-cs-fixer` *(needs a `composer.json` in the project)* |
+
+> `biome` is a Rust formatter (no Node.js) — it formats JS/TS/JSON near-instantly.
+> `prettierd` keeps a daemon running so HTML/CSS stay fast after the first call.
+
+Formatters are not auto-installed — install them once via Mason:
+
+```vim
+:MasonInstall stylua black prettierd biome php-cs-fixer
+```
 
 ## Editor behavior
 
 Automatic behavior configured in `autocmd.lua`:
 
 - Yanked (copied) text is briefly highlighted.
-- On save, the buffer is formatted by conform (see [Formatters](#formatters)).
+- The cursor returns to its last position when you reopen a file.
+- Trailing whitespace is trimmed on save.
 - Comment leaders are **not** auto-continued when you start a new line.
 
 ## Keymaps
 
+Leader is `<Space>`.
+
+**Find & navigate (Telescope)**
+
 | Key | Action |
 | --- | --- |
-| `<leader>ff` | Telescope — find files |
-| `<leader>fr` | Telescope — resume last picker |
-| `<leader>fb` | Telescope — buffers |
-| `<leader>ft` | Telescope — TODO comments |
-| `gd` | LSP — go to definition |
-| `<leader>e` | Show diagnostic under cursor |
+| `<leader>ff` | Find files (project root) |
+| `<leader>fe` | File browser — current file's directory |
+| `<leader>fb` | Buffers |
+| `<leader>fr` | Resume last picker |
+| `<leader>ft` | TODO comments |
+
+**Git**
+
+| Key | Action |
+| --- | --- |
+| `<leader>gg` | Open LazyGit |
 | `<leader>gs` | Telescope — git status |
 | `<leader>gc` | Telescope — git commits |
 | `<leader>gb` | Telescope — git branches |
-| `<leader>gg` | Open LazyGit |
+
+**LSP & code**
+
+| Key | Action |
+| --- | --- |
+| `gd` | Go to definition |
+| `<leader>e` | Show diagnostic under cursor |
+| `<leader>cf` | Format buffer / selection, then save |
+
+**Windows & editing**
+
+| Key | Action |
+| --- | --- |
 | `<leader>r` | Vertical split |
 | `<C-h>` / `<C-j>` / `<C-k>` / `<C-l>` | Move to the split left / down / up / right |
 | `<Esc>` | Clear search highlight |
