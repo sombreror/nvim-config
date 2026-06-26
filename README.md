@@ -12,6 +12,37 @@ versions are restored on any machine. The leader key is `<Space>`.
 > where a lot of the ideas here come from. A great starting point if you want to
 > build your own.
 
+## Learning Neovim
+
+Before reaching for the internet, use Neovim's **built-in documentation** — it is
+excellent, always matches the version you are running, and is the single best way
+to learn the editor. It is highly recommended.
+
+**Help system** — every option, command and function is documented:
+
+| Command | What it does |
+| --- | --- |
+| `:help` | Open the main help page |
+| `:help <topic>` | Help for a specific topic, e.g. `:help vim.pack` |
+| `:help <keys>` | What a key does, e.g. `:help <C-w>` or `:help :w` |
+| `:helpgrep <text>` | Search the full text of all help files |
+| `K` | Open help (or LSP hover docs) for the word under the cursor |
+| `<C-]>` / `<C-o>` | Jump to a tag link in help / jump back |
+
+> Inside a help buffer, links are the words wrapped in `|bars|`. Put the cursor on
+> one and press `<C-]>` to follow it, `<C-o>` to go back.
+
+**Interactive tutorial** — the fastest way to get the fundamentals into your
+fingers:
+
+```vim
+:Tutor
+```
+
+`:Tutor` opens a ~30-minute hands-on lesson (movement, editing, search,
+saving…). Work through it directly inside Neovim — it is the recommended starting
+point for anyone new to the editor.
+
 ## Requirements
 
 | Tool | Why |
@@ -46,6 +77,24 @@ sudo dnf install neovim git lazygit ripgrep fd-find gcc make nodejs
 # Debian / Ubuntu
 sudo apt install neovim git ripgrep fd-find gcc make nodejs
 #   lazygit: see https://github.com/jesseduffield/lazygit#installation
+
+# Arch / Manjaro
+sudo pacman -S neovim git lazygit ripgrep fd gcc make nodejs
+
+# openSUSE
+sudo zypper install neovim git lazygit ripgrep fd gcc make nodejs
+
+# Void Linux
+sudo xbps-install -S neovim git lazygit ripgrep fd gcc make nodejs
+
+# Alpine
+sudo apk add neovim git lazygit ripgrep fd gcc make nodejs
+
+# Gentoo
+sudo emerge app-editors/neovim dev-vcs/git dev-tools/lazygit sys-apps/ripgrep sys-apps/fd gcc make nodejs
+
+# Nix (any distro)
+nix-env -iA nixpkgs.neovim nixpkgs.git nixpkgs.lazygit nixpkgs.ripgrep nixpkgs.fd nixpkgs.gcc nixpkgs.gnumake nixpkgs.nodejs
 
 # macOS (Homebrew)
 brew install neovim git lazygit ripgrep fd gcc make node
