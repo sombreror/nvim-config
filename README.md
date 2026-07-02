@@ -176,7 +176,7 @@ something looks off.
         ├── editing.lua        # conform, autopairs, mini.move/surround, todo-comments
         ├── git.lua            # gitsigns
         ├── telescope.lua      # Telescope + fzf + file browser
-        ├── ui.lua             # tokyonight + lualine
+        ├── ui.lua             # tokyonight + lualine + nvim-notify
         └── lsp.lua            # Mason + language servers (loaded last)
 ```
 
@@ -213,6 +213,8 @@ something looks off.
 - **tokyonight** — color scheme (`night` style, matched to the terminal).
 - **lualine** + **nvim-web-devicons** — statusline with mode, git branch,
   diagnostics, selection/search counters and file icons.
+- **nvim-notify** — `vim.notify()` messages as popups in the top-right corner
+  (`:Notifications` shows the history).
 
 > `noice.nvim` must **not** be added — it conflicts with the native
 > `vim._core.ui2` UI already enabled in `init.lua`.

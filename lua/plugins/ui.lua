@@ -5,6 +5,14 @@ require("tokyonight").setup({
 
 vim.cmd.colorscheme("tokyonight")
 
+-- NVIM-NOTIFY => notifications as popups in the top-right corner --
+-- :Notifications => history of past notifications
+require("notify").setup({
+	stages = "fade", -- => fade in/out animation
+	timeout = 3000, -- => ms before the popup disappears
+})
+vim.notify = require("notify") -- => every vim.notify() call becomes a popup (ConfigUpdate, plugins...)
+
 -- LUALINE => status bar --
 require("lualine").setup({
 	options = {

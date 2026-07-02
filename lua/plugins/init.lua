@@ -20,6 +20,7 @@ vim.pack.add({
 	"https://github.com/nvim-mini/mini.surround", -- => help for "", (), '', {}, []
 	"https://github.com/nvim-mini/mini.move", -- => movement alt+hjkl for moving lines in visual and normal mode
 	"https://github.com/folke/todo-comments.nvim", -- => TODO and all types of comments
+	"https://github.com/rcarriga/nvim-notify", -- => vim.notify() as popups in the top-right corner
 })
 
 -- Setup modules => one file per area
