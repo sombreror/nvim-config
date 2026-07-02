@@ -162,6 +162,7 @@ something looks off.
 .
 ├── init.lua                  # Entry point — loads the modules below
 ├── nvim-pack-lock.json       # Pinned plugin versions
+├── snippets/                 # Custom snippets, loaded by blink.cmp (html.json, …)
 └── lua/
     ├── config/
     │   ├── options.lua        # Neovim options
@@ -169,7 +170,14 @@ something looks off.
     │   ├── autocmd.lua        # Automatic editor behavior
     │   └── commands.lua       # Custom user commands (:ConfigUpdate)
     └── plugins/
-        └── init.lua           # Plugin list and setup
+        ├── init.lua           # Plugin list (vim.pack) — loads the modules below
+        ├── completion.lua     # blink.cmp
+        ├── treesitter.lua     # Treesitter parsers (tree-sitter-manager)
+        ├── editing.lua        # conform, autopairs, mini.move/surround, todo-comments
+        ├── git.lua            # gitsigns
+        ├── telescope.lua      # Telescope + fzf + file browser
+        ├── ui.lua             # tokyonight + lualine
+        └── lsp.lua            # Mason + language servers (loaded last)
 ```
 
 ## Plugins

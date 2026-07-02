@@ -1,0 +1,9 @@
+-- BLINK => only the NON-default stuff --
+require("blink.cmp").setup({
+	keymap = { preset = "super-tab" },
+	completion = {
+		documentation = { auto_show = true }, -- => shows the docs automatically
+		ghost_text = { enabled = true }, -- => inline grey preview
+	},
+	signature = { enabled = true }, -- => help on function parameters
+})

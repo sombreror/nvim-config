@@ -1,5 +1,7 @@
 -- paste without overwriting what you copied
-vim.keymap.set("x", "p", [["_dP]], { desc = "Paste without overwriting the register" })
+-- native P (nvim 0.10+) already pastes without yanking the replaced text,
+-- and handles end-of-line correctly (unlike the old "_dP trick)
+vim.keymap.set("x", "p", "P", { desc = "Paste without overwriting the register" })
 
 -- clear highlighting when you press esc
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "clears all highlighting when you press esc" })
