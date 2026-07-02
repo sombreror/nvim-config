@@ -6,4 +6,11 @@ require("blink.cmp").setup({
 		ghost_text = { enabled = true }, -- => inline grey preview
 	},
 	signature = { enabled = true }, -- => help on function parameters
+	sources = {
+		default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+		providers = {
+			-- lazydev => nvim API results (vim.*) above the generic lua_ls ones
+			lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
+		},
+	},
 })

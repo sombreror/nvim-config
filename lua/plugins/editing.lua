@@ -34,6 +34,18 @@ require("mini.surround").setup({
 	search_method = "cover_or_next", -- => acts even if the cursor is before the target, not only inside
 })
 
+-- MINI.AI => smarter a/i textobjects (treesitter-aware) --
+-- vif / vaf => inside / around function call    e.g. vif on foo(bar) -> selects bar
+-- via / vaa => inside / around argument
+-- viq / vaq => inside / around the nearest quotes
+-- vib / vab => inside / around the nearest brackets
+-- (they work with every operator: d, c, y ... e.g. cia = change argument)
+require("mini.ai").setup()
+
+-- GRUG-FAR => project-wide search & replace with ripgrep --
+-- <leader>sr => opens the panel ; edit the results live, then save to apply
+require("grug-far").setup()
+
 -- TODO COMMENTS --
 -- highlights keywords in comments: TODO: FIXME: HACK: WARN: PERF: NOTE: TEST:
 -- :TodoTelescope  => fuzzy list of all comments in the project (mapped to <leader>ft)

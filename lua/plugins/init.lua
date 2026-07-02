@@ -21,13 +21,22 @@ vim.pack.add({
 	"https://github.com/nvim-mini/mini.move", -- => movement alt+hjkl for moving lines in visual and normal mode
 	"https://github.com/folke/todo-comments.nvim", -- => TODO and all types of comments
 	"https://github.com/rcarriga/nvim-notify", -- => vim.notify() as popups in the top-right corner
+	"https://github.com/folke/which-key.nvim", -- => popup with the available keymaps after <leader>
+	"https://github.com/folke/flash.nvim", -- => jump anywhere on screen with 2 chars + label
+	{ src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" }, -- => bookmark hot files, 1-key switch
+	"https://github.com/nvim-mini/mini.ai", -- => smarter textobjects: vif = inside function, via = inside argument
+	"https://github.com/MagicDuck/grug-far.nvim", -- => project-wide search & replace (ripgrep) with live preview
+	"https://github.com/brenoprata10/nvim-highlight-colors", -- => shows css colors inline (#ff5500, rgb()...)
+	"https://github.com/folke/lazydev.nvim", -- => nvim API completion + docs when editing this config
+	"https://github.com/brianhuster/live-preview.nvim", -- => live html/css/md preview in the browser (:LivePreview)
 })
 
 -- Setup modules => one file per area
-require("plugins.completion") -- => blink.cmp
+require("plugins.completion") -- => blink.cmp (+ lazydev source)
 require("plugins.treesitter") -- => tree-sitter-manager
-require("plugins.editing") -- => conform, autopairs, mini.move, mini.surround, todo-comments
-require("plugins.git") -- => gitsigns
+require("plugins.editing") -- => conform, autopairs, mini.*, todo-comments, grug-far
+require("plugins.git") -- => gitsigns + hunk keymaps
 require("plugins.telescope") -- => telescope + fzf + file_browser
-require("plugins.ui") -- => tokyonight, lualine
-require("plugins.lsp") -- => mason + servers ; goes LAST: mason-lspconfig enables the servers
+require("plugins.navigation") -- => flash, harpoon, which-key
+require("plugins.ui") -- => tokyonight, lualine, nvim-notify, highlight-colors
+require("plugins.lsp") -- => mason + servers + lazydev ; goes LAST: mason-lspconfig enables the servers

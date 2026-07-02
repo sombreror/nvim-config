@@ -7,9 +7,13 @@ vim.diagnostic.config({
 	severity_sort = true, -- => severity of the problem
 })
 
--- LUA => "vim" global ; no warnings --
-vim.lsp.config("lua_ls", {
-	settings = { Lua = { diagnostics = { globals = { "vim" } } } },
+-- LAZYDEV => teaches lua_ls the nvim API when editing this config --
+-- real completion + docs (K) for vim.* ; also makes the "vim" global known,
+-- so the old `globals = { "vim" }` workaround is no longer needed
+require("lazydev").setup({
+	library = {
+		{ path = "${3rd}/luv/library", words = { "vim%.uv" } }, -- => types for vim.uv (libuv)
+	},
 })
 
 -- EMMET + HTML => also attach inside .php files (php with embedded html) --

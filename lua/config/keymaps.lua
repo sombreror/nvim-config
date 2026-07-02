@@ -39,6 +39,9 @@ vim.keymap.set(
 -- TELESCOPE TODO --
 vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Open TodoTelescope to search TODO comments" })
 
+-- TELESCOPE LIVE GREP => search TEXT in the whole project (needs ripgrep) --
+vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Live grep: search text in the project" })
+
 -- TELESCOPE GIT COMMANDS --
 vim.keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "Open with Telescope git_status" })
 vim.keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "Open with Telescope git_commits" })
@@ -56,3 +59,30 @@ end, { desc = "Format buffer/selection with conform, then save" })
 
 -- TERMINAL --> integrated terminal in nvim --
 vim.keymap.set("n", "<leader>t", "<cmd>terminal<CR>", { desc = "Open the terminal inside nvim" })
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode with a double Esc" })
+
+-- FLASH => jump anywhere on screen: <leader>j + 2 chars + label key --
+-- (not on "s": that prefix belongs to mini.surround)
+vim.keymap.set({ "n", "x", "o" }, "<leader>j", function()
+	require("flash").jump()
+end, { desc = "Flash: jump anywhere with 2 chars" })
+vim.keymap.set({ "n", "x", "o" }, "<leader>J", function()
+	require("flash").treesitter()
+end, { desc = "Flash: select treesitter node" })
+
+-- HARPOON => hot files: add, menu, jump --
+vim.keymap.set("n", "<leader>a", function()
+	require("harpoon"):list():add()
+end, { desc = "Harpoon: add current file" })
+vim.keymap.set("n", "<leader>h", function()
+	local harpoon = require("harpoon")
+	harpoon.ui:toggle_quick_menu(harpoon:list())
+end, { desc = "Harpoon: open the menu" })
+for i = 1, 4 do
+	vim.keymap.set("n", "<leader>" .. i, function()
+		require("harpoon"):list():select(i)
+	end, { desc = "Harpoon: jump to file " .. i })
+end
+
+-- GRUG-FAR => search & replace in the whole project --
+vim.keymap.set("n", "<leader>sr", "<cmd>GrugFar<CR>", { desc = "Search & replace in the project (grug-far)" })

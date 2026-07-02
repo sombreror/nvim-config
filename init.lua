@@ -2,8 +2,8 @@
 vim.loader.enable()
 
 -- Leader => space
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- Entry point: load the config modules
 require("config.options")

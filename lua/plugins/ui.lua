@@ -25,6 +25,9 @@ for level, color in pairs({ ERROR = palette.red, WARN = palette.yellow, INFO = p
 	vim.api.nvim_set_hl(0, "Notify" .. level .. "Title", { fg = color })
 end
 
+-- HIGHLIGHT COLORS => shows #ff5500, rgb(), hsl()... as the actual color, inline --
+require("nvim-highlight-colors").setup({})
+
 -- LUALINE => status bar --
 require("lualine").setup({
 	options = {
