@@ -27,10 +27,10 @@ require("lazydev").setup({
 -- EMMET + HTML => also attach inside .php files (php with embedded html) --
 -- so Emmet abbreviations (e.g. ! ) and HTML completion work in .php too
 vim.lsp.config("emmet_language_server", {
-	filetypes = vim.list_extend(vim.deepcopy(vim.lsp.config.emmet_language_server.filetypes), { "php" }),
+	filetypes = vim.list_extend(vim.deepcopy(vim.lsp.config.emmet_language_server.filetypes or {}), { "php" }),
 })
 vim.lsp.config("html", {
-	filetypes = vim.list_extend(vim.deepcopy(vim.lsp.config.html.filetypes), { "php" }),
+	filetypes = vim.list_extend(vim.deepcopy(vim.lsp.config.html.filetypes or {}), { "php" }),
 })
 
 -- MASON-LSPCONFIG => goes LAST ; installs + enables --
