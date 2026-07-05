@@ -66,6 +66,10 @@
       "rev": "a2f644f3759edd3d3f8b6a6d55378408bfe6d290",
       "src": "https://github.com/nvim-mini/mini.surround"
     },
+    "mini.trailspace": {
+      "rev": "22653218f1aedc9bf306c8b4e8ec2c8a575f6fae",
+      "src": "https://github.com/nvim-mini/mini.trailspace"
+    },
     "nvim-autopairs": {
       "rev": "7b9923abad60b903ece7c52940e1321d39eccc79",
       "src": "https://github.com/windwp/nvim-autopairs"

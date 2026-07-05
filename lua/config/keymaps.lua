@@ -50,6 +50,16 @@ vim.keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", { desc = "O
 -- LSP --
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic under cursor" })
+vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename symbol in the whole project" })
+vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action (fix, refactor...)" })
+-- grr => native since 0.11, but the quickfix list is bare ; telescope picker instead
+vim.keymap.set("n", "grr", "<cmd>Telescope lsp_references<CR>", { desc = "References of the symbol (telescope)" })
+vim.keymap.set(
+	"n",
+	"<leader>fs",
+	"<cmd>Telescope lsp_document_symbols<CR>",
+	{ desc = "Symbols in the file: functions, classes... (telescope)" }
+)
 
 -- FORMAT (conform) => format then save --
 vim.keymap.set({ "n", "v" }, "<leader>cf", function()
@@ -86,3 +96,10 @@ end
 
 -- GRUG-FAR => search & replace in the whole project --
 vim.keymap.set("n", "<leader>sr", "<cmd>GrugFar<CR>", { desc = "Search & replace in the project (grug-far)" })
+
+-- MINI.TRAILSPACE => trim trailing whitespace on demand --
+-- (the formatters via <leader>cf already trim it ; this covers everything else)
+vim.keymap.set("n", "<leader>cw", function()
+	require("mini.trailspace").trim()
+	require("mini.trailspace").trim_last_lines()
+end, { desc = "Trim trailing whitespace + empty last lines" })

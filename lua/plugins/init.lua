@@ -25,6 +25,7 @@ vim.pack.add({
 	"https://github.com/folke/flash.nvim", -- => jump anywhere on screen with 2 chars + label
 	{ src = "https://github.com/ThePrimeagen/harpoon", version = "harpoon2" }, -- => bookmark hot files, 1-key switch
 	"https://github.com/nvim-mini/mini.ai", -- => smarter textobjects: vif = inside function, via = inside argument
+	"https://github.com/nvim-mini/mini.trailspace", -- => highlights trailing whitespace ; trim with <leader>cw
 	"https://github.com/MagicDuck/grug-far.nvim", -- => project-wide search & replace (ripgrep) with live preview
 	"https://github.com/brenoprata10/nvim-highlight-colors", -- => shows css colors inline (#ff5500, rgb()...)
 	"https://github.com/folke/lazydev.nvim", -- => nvim API completion + docs when editing this config

@@ -42,3 +42,12 @@ vim.opt.scrolloff = 999 -- => 999 so the cursor when navigating is always in the
 
 -- preserve indentation when long lines wrap
 vim.opt.breakindent = true
+
+-- rounded border on every floating window (LSP hover, signature help, diagnostics...)
+vim.opt.winborder = "rounded"
+
+-- live preview of :s/old/new/ substitutions => shows every match in a split while typing
+vim.opt.inccommand = "split"
+
+-- :q on an unsaved buffer => ask "save?" instead of failing with an error
+vim.opt.confirm = true

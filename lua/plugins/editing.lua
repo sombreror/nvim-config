@@ -42,6 +42,11 @@ require("mini.surround").setup({
 -- (they work with every operator: d, c, y ... e.g. cia = change argument)
 require("mini.ai").setup()
 
+-- MINI.TRAILSPACE => highlights trailing whitespace in red --
+-- trim is MANUAL via <leader>cw => no more silent edits on save
+-- (the old autocmd trimmed every file on :w => noisy diffs in repos not mine)
+require("mini.trailspace").setup()
+
 -- GRUG-FAR => project-wide search & replace with ripgrep --
 -- <leader>sr => opens the panel ; edit the results live, then save to apply
 require("grug-far").setup()
