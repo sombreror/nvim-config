@@ -212,7 +212,7 @@ plugin is set up in its own themed module under `plugins/`.
         ├── init.lua           # Plugin list (vim.pack) — loads the modules below
         ├── completion.lua     # blink.cmp + lazydev source
         ├── treesitter.lua     # Treesitter parsers (tree-sitter-manager)
-        ├── editing.lua        # conform, autopairs, mini.ai/move/surround, todo-comments, grug-far
+        ├── editing.lua        # conform, autopairs, mini.*, todo-comments, grug-far
         ├── git.lua            # gitsigns + hunk keymaps
         ├── telescope.lua      # Telescope + fzf + file browser
         ├── navigation.lua     # flash, harpoon, which-key
@@ -240,6 +240,8 @@ plugin is set up in its own themed module under `plugins/`.
 - **mini.surround** — add / change / delete surrounding pairs (`sa` / `sd` /
   `sr`).
 - **mini.move** — move lines and selections with `Alt+hjkl`.
+- **mini.trailspace** — highlights trailing whitespace; trim it on demand with
+  `<leader>cw` (no silent edits on save).
 - **todo-comments.nvim** — highlights `TODO` / `FIXME` / `HACK` / `WARN` /
   `NOTE` and lists them with Telescope (`<leader>ft`).
 
@@ -321,8 +323,13 @@ Automatic behavior configured in `autocmd.lua`:
 
 - Yanked (copied) text is briefly highlighted.
 - The cursor returns to its last position when you reopen a file.
-- Trailing whitespace is trimmed on save.
+- Files changed outside Neovim (lazygit, `git checkout`…) are reloaded
+  automatically.
+- The terminal opens with no line numbers, already in insert mode.
+- Splits are re-balanced when the terminal window is resized.
 - Comment leaders are **not** auto-continued when you start a new line.
+- Trailing whitespace is highlighted (mini.trailspace) and trimmed manually
+  with `<leader>cw` — never silently on save.
 
 ## Keymaps
 
@@ -339,6 +346,7 @@ below, live.
 | `<leader>fb` | Open buffers |
 | `<leader>fr` | Resume the last picker |
 | `<leader>ft` | TODO comments |
+| `<leader>fs` | Symbols in the current file (functions, classes…) |
 
 **Jump & switch**
 
@@ -370,9 +378,12 @@ below, live.
 | --- | --- |
 | `gd` | Go to definition |
 | `K` | Hover documentation *(native)* |
-| `grr` / `grn` / `gra` | References / rename / code action *(native, nvim 0.11+)* |
+| `grr` | References of the symbol, in a Telescope picker |
+| `<leader>cr` | Rename the symbol in the whole project |
+| `<leader>ca` | Code action — fix, refactor… *(also in visual)* |
 | `<leader>e` | Show diagnostic under cursor |
 | `<leader>cf` | Format buffer / selection, then save |
+| `<leader>cw` | Trim trailing whitespace + empty last lines |
 | `<leader>sr` | Search & replace in the whole project (grug-far) |
 
 **Editing**
