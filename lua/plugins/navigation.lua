@@ -6,7 +6,7 @@ require("flash").setup({})
 -- HARPOON => bookmark the files you are working on right now --
 -- <leader>a  => add current file ; <leader>h => menu ; <leader>1..4 => jump to file 1..4
 -- (telescope = search anything ; harpoon = instant switch between the 3-4 hot files)
-require("harpoon").setup()
+require("harpoon"):setup() -- => colon call, as the harpoon README requires (self = the harpoon instance)
 
 -- WHICH-KEY => press <leader> and wait: popup with every keymap and what it does --
 require("which-key").setup({})

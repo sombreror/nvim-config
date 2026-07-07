@@ -1,4 +1,6 @@
 -- Theme And Various UI Config --
+-- tokyonight's annotations mark optional fields (on_colors...) as required => silence the false warning
+---@diagnostic disable-next-line: missing-fields
 require("tokyonight").setup({
 	style = "night", -- => night / storm / moon / day ; "night" = same background as the terminal
 })
@@ -7,6 +9,8 @@ vim.cmd.colorscheme("tokyonight")
 
 -- NVIM-NOTIFY => notifications as popups in the top-right corner --
 -- :Notifications => history of past notifications
+-- same story as tokyonight => merge_duplicates is optional, not required
+---@diagnostic disable-next-line: missing-fields
 require("notify").setup({
 	render = "wrapped-compact", -- => compact single-block popup ; long text wraps instead of stretching
 	stages = "fade", -- => fade in/out animation ; rounded border
