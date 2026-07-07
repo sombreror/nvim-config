@@ -7,6 +7,7 @@
 [![Neovim](https://img.shields.io/badge/Neovim-0.12%2B-57A143?style=for-the-badge&logo=neovim&logoColor=white)](https://neovim.io)
 [![Lua](https://img.shields.io/badge/Lua-100%25-2C2D72?style=for-the-badge&logo=lua&logoColor=white)](https://www.lua.org)
 [![vim.pack](https://img.shields.io/badge/plugins-vim.pack_(native)-7aa2f7?style=for-the-badge)](https://neovim.io/doc/user/pack.html)
+<br>
 [![Theme](https://img.shields.io/badge/theme-Tokyo_Night-bb9af7?style=for-the-badge)](https://github.com/folke/tokyonight.nvim)
 [![License](https://img.shields.io/badge/license-MIT-9ece6a?style=for-the-badge)](./LICENSE)
 [![Last commit](https://img.shields.io/github/last-commit/sombreror/nvim-config?style=for-the-badge&color=e0af68)](https://github.com/sombreror/nvim-config/commits/main)
@@ -15,18 +16,18 @@
 lockfile, every tool auto-installed: the exact same setup restored on any
 machine with one `git clone`.*
 
-<br>
-
-<img width="820" alt="nvim-config in action — which-key, Telescope find + live grep, lazygit" src="https://github.com/user-attachments/assets/01f91c99-eabf-4a58-960f-8a5c8eb7df91" />
-
-<img width="820" alt="Telescope find_files with grep preview, Tokyo Night theme" src="https://github.com/user-attachments/assets/21edfc59-58bb-46b9-80c9-1c48141b0dd8" />
-
 [Highlights](#highlights) •
 [Installation](#installation) •
 [Plugins](#plugins) •
 [Keymaps](#keymaps) •
 [Troubleshooting](#troubleshooting) •
 [Syncing](#syncing-changes)
+
+<br>
+
+<img width="850" alt="nvim-config in action — which-key, Telescope find + live grep, lazygit" src="https://github.com/user-attachments/assets/01f91c99-eabf-4a58-960f-8a5c8eb7df91" />
+
+<sub>Press <kbd>Space</kbd> and wait: which-key · Telescope find + live grep · lazygit — the daily flow, no mouse.</sub>
 
 </div>
 
@@ -261,6 +262,14 @@ plugin is set up in its own themed module under `plugins/`.
 | **harpoon** | Bookmark the 3-4 files you are working on and switch with one key (`<leader>a` / `<leader>1..4`) |
 | **grug-far.nvim** | Project-wide search & replace powered by ripgrep, with a live editable preview (`<leader>sr`) |
 | **which-key.nvim** | Press <kbd>Space</kbd> and wait: popup with every keymap and what it does |
+
+<div align="center">
+<br>
+<img width="850" alt="Telescope find_files with grep preview, Tokyo Night theme" src="https://github.com/user-attachments/assets/21edfc59-58bb-46b9-80c9-1c48141b0dd8" />
+
+<sub>Telescope's find_files with the grep preview — fuzzy matching over the whole project.</sub>
+<br><br>
+</div>
 
 ### Git
 
