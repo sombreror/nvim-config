@@ -8,6 +8,7 @@
 [![Lua](https://img.shields.io/badge/Lua-100%25-2C2D72?style=for-the-badge&logo=lua&logoColor=white)](https://www.lua.org)
 [![vim.pack](https://img.shields.io/badge/plugins-vim.pack_(native)-7aa2f7?style=for-the-badge)](https://neovim.io/doc/user/pack.html)
 [![Theme](https://img.shields.io/badge/theme-Tokyo_Night-bb9af7?style=for-the-badge)](https://github.com/folke/tokyonight.nvim)
+[![License](https://img.shields.io/badge/license-MIT-9ece6a?style=for-the-badge)](./LICENSE)
 
 *Built on Neovim's native plugin manager `vim.pack` — every plugin pinned in a
 lockfile, every tool auto-installed: the exact same setup restored on any
@@ -259,7 +260,7 @@ plugin is set up in its own themed module under `plugins/`.
 
 | Plugin | What it does |
 | --- | --- |
-| **gitsigns** | Change markers in the gutter + hunk actions: jump (`]c` / `[c`), preview, stage and reset hunks — even just the selected lines — without leaving the file |
+| **gitsigns** | Change markers in the gutter + hunk actions: jump (`]c` / `[c`), preview, stage and reset hunks — even just the selected lines — plus toggleable inline blame, all without leaving the file |
 | **lazygit.nvim** | Full git UI inside Neovim (`<leader>gg`) |
 
 ### Web development
@@ -370,6 +371,7 @@ shows everything below, live.
 | `<leader>gr` | Reset the hunk (discard that change) |
 | `<leader>ga` *(visual)* | Stage **only the selected lines** of a hunk |
 | `<leader>gr` *(visual)* | Reset **only the selected lines** of a hunk |
+| `<leader>gB` | Toggle inline blame — author + date of the current line |
 | `<leader>gs` | Telescope — git status |
 | `<leader>gc` | Telescope — git commits |
 | `<leader>gb` | Telescope — git branches |
@@ -413,6 +415,7 @@ shows everything below, live.
 | Command | What it does |
 | --- | --- |
 | `:ConfigUpdate` | Pull the latest config from git, right from inside Neovim |
+| `:PackUpdate` | Update all plugins — review buffer, `:write` to apply |
 | `:LivePreview start` / `close` | Live browser preview of the current HTML/MD file |
 | `:GrugFar` | Project-wide search & replace panel |
 | `:Notifications` | History of the notification popups |
@@ -456,6 +459,23 @@ The equivalent from a terminal, if you prefer:
 ```bash
 git -C ~/.config/nvim pull
 ```
+
+### Updating the plugins
+
+The lockfile keeps the plugins **pinned** — they never move on their own. When
+*you* decide to update them:
+
+```vim
+:PackUpdate
+```
+
+It opens a review buffer with the changelog of every plugin that has a newer
+version: apply with `:write`, or discard with `:q`.
+
+> [!TIP]
+> Applying also refreshes [`nvim-pack-lock.json`](./nvim-pack-lock.json) —
+> **commit it** so every other machine gets the same plugin versions on the
+> next `:ConfigUpdate`.
 
 ---
 
