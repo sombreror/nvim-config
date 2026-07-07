@@ -9,6 +9,7 @@
 [![vim.pack](https://img.shields.io/badge/plugins-vim.pack_(native)-7aa2f7?style=for-the-badge)](https://neovim.io/doc/user/pack.html)
 [![Theme](https://img.shields.io/badge/theme-Tokyo_Night-bb9af7?style=for-the-badge)](https://github.com/folke/tokyonight.nvim)
 [![License](https://img.shields.io/badge/license-MIT-9ece6a?style=for-the-badge)](./LICENSE)
+[![Last commit](https://img.shields.io/github/last-commit/sombreror/nvim-config?style=for-the-badge&color=e0af68)](https://github.com/sombreror/nvim-config/commits/main)
 
 *Built on Neovim's native plugin manager `vim.pack` — every plugin pinned in a
 lockfile, every tool auto-installed: the exact same setup restored on any
@@ -18,26 +19,12 @@ machine with one `git clone`.*
 [Installation](#installation) •
 [Plugins](#plugins) •
 [Keymaps](#keymaps) •
+[Troubleshooting](#troubleshooting) •
 [Syncing](#syncing-changes)
 
 </div>
 
 ---
-
-## Table of contents
-
-- [Highlights](#highlights)
-- [Learning Neovim](#learning-neovim)
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Structure](#structure)
-- [Plugins](#plugins)
-- [Language servers](#language-servers)
-- [Formatting](#formatting)
-- [Editor behavior](#editor-behavior)
-- [Keymaps](#keymaps)
-- [Commands](#commands)
-- [Syncing changes](#syncing-changes)
 
 ## Highlights
 
@@ -48,6 +35,19 @@ machine with one `git clone`.*
 | **Web-dev ready** | LSP, Emmet, snippets and formatters for PHP, JS/TS, HTML, CSS and Python — live browser preview included. |
 | **Keyboard-first, no VS Code cosplay** | No sidebar, no breadcrumbs: Telescope to find things, Harpoon to switch between hot files, Flash to jump anywhere on screen. |
 | **Discoverable** | Press <kbd>Space</kbd> and *wait*: which-key pops up every keymap with its description. The config teaches itself. |
+
+### The daily drivers
+
+The 20% of keymaps used 80% of the time — the full list is in [Keymaps](#keymaps):
+
+| Key | Action |
+| --- | --- |
+| `<leader>ff` / `<leader>fg` | Telescope — find a **file** / grep **text** in the whole project |
+| `<leader>j` | Flash — type 2 chars, jump anywhere on screen |
+| `<leader>a` / `<leader>1..4` | Harpoon — mark a hot file / jump straight to it |
+| `<leader>gg` | LazyGit |
+| `<leader>cf` | Format the buffer, then save |
+| <kbd>Space</kbd> *(and wait)* | which-key — every other keymap, live |
 
 > [!NOTE]
 > Big thanks to [**kickstart.nvim**](https://github.com/nvim-lua/kickstart.nvim) —
@@ -284,8 +284,19 @@ plugin is set up in its own themed module under `plugins/`.
 
 ## Language servers
 
-Auto-installed via Mason: `lua_ls`, `pyright`, `ts_ls`, `intelephense`,
-`html`, `cssls`, `emmet_language_server`, `eslint`, `jsonls`.
+All auto-installed via Mason on the first launch:
+
+| Server | Covers |
+| --- | --- |
+| `lua_ls` | Lua *(+ the Neovim API, via lazydev)* |
+| `pyright` | Python |
+| `ts_ls` | JavaScript / TypeScript |
+| `eslint` | JS/TS linting *(apply the fixes with `<leader>ce`)* |
+| `intelephense` | PHP |
+| `html` | HTML |
+| `cssls` | CSS / SCSS / Less |
+| `emmet_language_server` | Emmet abbreviations for HTML/CSS |
+| `jsonls` | JSON *(`package.json`, configs…)* |
 
 > [!TIP]
 > The `html` and `emmet_language_server` servers are also attached to `.php`
@@ -422,6 +433,31 @@ shows everything below, live.
 | `:Mason` | Manage language servers and formatters |
 | `:TSInstall <lang>` | Install an extra Treesitter parser |
 
+## Adding a plugin
+
+1. Add the repo URL to the `vim.pack.add` list in
+   [`lua/plugins/init.lua`](./lua/plugins/init.lua), with a one-line comment
+   saying what it does.
+2. Configure it in the themed module it belongs to (`plugins/editing.lua`,
+   `plugins/ui.lua`…) — or create a new module and `require` it at the bottom
+   of `plugins/init.lua`.
+3. Restart Neovim: `vim.pack` installs it automatically. Then **commit the
+   updated [`nvim-pack-lock.json`](./nvim-pack-lock.json)** so every other
+   machine gets the same plugin at the same version.
+
+> [!TIP]
+> To remove a plugin, delete its URL and its setup, then run
+> `:lua vim.pack.del({ "plugin-name" })` to wipe it from disk too.
+
+## Troubleshooting
+
+| Symptom | Fix |
+| --- | --- |
+| Icons render as boxes or `?` | The terminal is not using a **Nerd Font** — install one and select it in the terminal profile |
+| Telescope errors about `fzf`, search feels slow | The native sorter was never built — re-run step 4 of [Installation](#installation) |
+| A formatter or language server is missing | Open `:Mason` and check it is installed — `:MasonLog` shows why an install failed |
+| Anything else looks off | `:checkhealth` — it inspects this whole config, plugin by plugin |
+
 ## Syncing changes
 
 The whole point of this repo is that the config is the same on every machine.
@@ -476,6 +512,10 @@ version: apply with `:write`, or discard with `:q`.
 > Applying also refreshes [`nvim-pack-lock.json`](./nvim-pack-lock.json) —
 > **commit it** so every other machine gets the same plugin versions on the
 > next `:ConfigUpdate`.
+
+## License
+
+Released under the [MIT License](./LICENSE).
 
 ---
 
