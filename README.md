@@ -11,6 +11,12 @@
 [![License](https://img.shields.io/badge/license-MIT-9ece6a?style=for-the-badge)](./LICENSE)
 [![Last commit](https://img.shields.io/github/last-commit/sombreror/nvim-config?style=for-the-badge&color=e0af68)](https://github.com/sombreror/nvim-config/commits/main)
 
+<div align="center">
+<img width="1366" height="698" alt="Schermata del 2026-07-07 21-07-17" src="https://github.com/user-attachments/assets/21edfc59-58bb-46b9-80c9-1c48141b0dd8" />
+
+<img width="1000" height="562" alt="nvim-demo" src="https://github.com/user-attachments/assets/01f91c99-eabf-4a58-960f-8a5c8eb7df91" />
+</div>
+
 *Built on Neovim's native plugin manager `vim.pack` — every plugin pinned in a
 lockfile, every tool auto-installed: the exact same setup restored on any
 machine with one `git clone`.*
