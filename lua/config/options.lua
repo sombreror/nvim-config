@@ -1,3 +1,10 @@
+-- remote-plugin providers => no plugin here uses them ; disabling
+-- silences the perl/ruby/node/python warnings in :checkhealth
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_node_provider = 0
+
 -- numbers --
 vim.opt.number = true
 vim.opt.relativenumber = true -- faster movement with hjkl

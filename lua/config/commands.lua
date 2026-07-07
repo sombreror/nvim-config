@@ -27,3 +27,11 @@ vim.api.nvim_create_user_command("ConfigUpdate", function()
 		end)
 	end)
 end, { desc = "Pull the latest config updates from git" })
+
+-- PLUGIN UPDATE => the missing half of :ConfigUpdate --
+-- :PackUpdate => vim.pack downloads the new versions and opens a review buffer
+-- with the changelog of every plugin ; :write applies, :q discards.
+-- Applying also refreshes nvim-pack-lock.json => commit it to pin the versions
+vim.api.nvim_create_user_command("PackUpdate", function()
+	vim.pack.update()
+end, { desc = "Update all plugins (review buffer, :write to apply)" })

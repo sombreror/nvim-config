@@ -15,6 +15,9 @@ require("telescope").setup({
 	},
 	pickers = {
 		find_files = { hidden = true },
+		-- rg skips hidden files by default => without this, files findable
+		-- with <leader>ff would be invisible to <leader>fg
+		live_grep = { additional_args = { "--hidden", "--glob", "!.git/" } },
 	},
 	extensions = {
 		fzf = {

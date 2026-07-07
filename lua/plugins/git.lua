@@ -20,6 +20,9 @@ require("gitsigns").setup({
 		map("<leader>ga", gs.stage_hunk, "Stage hunk (git add)")
 		map("<leader>gr", gs.reset_hunk, "Reset hunk (discard change)")
 
+		-- inline blame => author + date of the current line, as virtual text --
+		map("<leader>gB", gs.toggle_current_line_blame, "Toggle inline git blame")
+
 		-- same keys in visual mode => stage/reset only the SELECTED lines of a hunk --
 		local function vmap(l, r, desc)
 			vim.keymap.set("v", l, r, { buffer = bufnr, desc = desc })
