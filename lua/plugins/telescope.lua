@@ -4,7 +4,8 @@ require("telescope").setup({
 		sorting_strategy = "ascending",
 		-- initial_mode = "normal", -- => to change if it's not right for me --
 		layout_config = { prompt_position = "top" },
-		file_ignore_patterns = { "node_modules", ".git/", "vendor" },
+		-- lua patterns => escape the dot and anchor, or "vendor" also hides vendor.js
+		file_ignore_patterns = { "node_modules/", "%.git/", "^vendor/" },
 		mappings = {
 			i = {
 				["<C-j>"] = "move_selection_next",

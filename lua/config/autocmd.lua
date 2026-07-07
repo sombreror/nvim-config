@@ -42,6 +42,15 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "TermLeave" }, {
 	end,
 })
 
+-- the reload above is silent => say WHICH file was reloaded (fires after checktime reloads it)
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+	desc = "Notify when a file is reloaded after changing on disk",
+	group = vim.api.nvim_create_augroup("auto-reload-notify", { clear = true }),
+	callback = function(args)
+		vim.notify("Reloaded from disk: " .. vim.fn.fnamemodify(args.file, ":t"), vim.log.levels.INFO)
+	end,
+})
+
 -- terminal => no line numbers/signs, start already in insert mode --
 vim.api.nvim_create_autocmd("TermOpen", {
 	desc = "Clean look + insert mode when opening a terminal",

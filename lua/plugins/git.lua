@@ -19,6 +19,17 @@ require("gitsigns").setup({
 		map("<leader>gp", gs.preview_hunk, "Preview hunk (see the diff)")
 		map("<leader>ga", gs.stage_hunk, "Stage hunk (git add)")
 		map("<leader>gr", gs.reset_hunk, "Reset hunk (discard change)")
+
+		-- same keys in visual mode => stage/reset only the SELECTED lines of a hunk --
+		local function vmap(l, r, desc)
+			vim.keymap.set("v", l, r, { buffer = bufnr, desc = desc })
+		end
+		vmap("<leader>ga", function()
+			gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+		end, "Stage the selected lines")
+		vmap("<leader>gr", function()
+			gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+		end, "Reset the selected lines")
 	end,
 })
 

@@ -3,6 +3,7 @@ vim.pack.add({
 	"https://github.com/neovim/nvim-lspconfig", -- => ready-made config for every lsp server
 	"https://github.com/mason-org/mason.nvim", -- => installs the servers ; package manager
 	"https://github.com/mason-org/mason-lspconfig.nvim", -- => bridge mason <-> lsp ; auto-enable
+	"https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim", -- => auto-installs the formatters too
 	{ src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1.*") }, -- => completion
 	"https://github.com/rafamadriz/friendly-snippets", -- => ready-made snippets
 	{ src = "https://github.com/romus204/tree-sitter-manager.nvim" },

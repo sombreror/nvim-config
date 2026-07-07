@@ -48,3 +48,17 @@ require("mason-lspconfig").setup({
 		"jsonls", -- => json ; package.json etc
 	},
 })
+
+-- MASON-TOOL-INSTALLER => formatters (conform) --
+-- mason-lspconfig's ensure_installed only covers LSP servers ;
+-- without this, a fresh machine has no formatters and <leader>cf fails
+require("mason-tool-installer").setup({
+	ensure_installed = {
+		"stylua", -- => lua
+		"black", -- => python
+		"php-cs-fixer", -- => php
+		"biome", -- => js/ts/json (first choice)
+		"prettierd", -- => html/css/scss + fallback for js/ts/json
+		"prettier", -- => last-resort fallback
+	},
+})

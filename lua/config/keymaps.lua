@@ -62,10 +62,21 @@ vim.keymap.set(
 )
 
 -- FORMAT (conform) => format then save --
+-- (in visual mode formatters without range support, e.g. black, format the whole file)
 vim.keymap.set({ "n", "v" }, "<leader>cf", function()
 	require("conform").format({ async = false, lsp_format = "fallback" })
 	vim.cmd("write")
 end, { desc = "Format buffer/selection with conform, then save" })
+
+-- ESLINT => apply every auto-fixable lint fix (js/ts) ; manual like the formatter --
+-- :LspEslintFixAll exists only in buffers where the eslint server is attached
+vim.keymap.set("n", "<leader>ce", function()
+	if vim.fn.exists(":LspEslintFixAll") == 2 then
+		vim.cmd("LspEslintFixAll")
+	else
+		vim.notify("eslint is not attached to this buffer", vim.log.levels.WARN)
+	end
+end, { desc = "ESLint: fix all auto-fixable problems" })
 
 -- TERMINAL --> integrated terminal in nvim --
 vim.keymap.set("n", "<leader>t", "<cmd>terminal<CR>", { desc = "Open the terminal inside nvim" })

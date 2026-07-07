@@ -18,12 +18,22 @@ vim.notify = require("notify") -- => every vim.notify() call becomes a popup (Co
 
 -- Notification border color by level => tokyonight dims them to 30% (all borders look the same) ;
 -- full-strength colors instead: red = error, yellow = warning, green = all good
-local palette = require("tokyonight.colors").setup()
-for level, color in pairs({ ERROR = palette.red, WARN = palette.yellow, INFO = palette.green }) do
-	vim.api.nvim_set_hl(0, "Notify" .. level .. "Border", { fg = color, bg = palette.bg })
-	vim.api.nvim_set_hl(0, "Notify" .. level .. "Icon", { fg = color })
-	vim.api.nvim_set_hl(0, "Notify" .. level .. "Title", { fg = color })
+local function notify_highlights()
+	local palette = require("tokyonight.colors").setup()
+	for level, color in pairs({ ERROR = palette.red, WARN = palette.yellow, INFO = palette.green }) do
+		vim.api.nvim_set_hl(0, "Notify" .. level .. "Border", { fg = color, bg = palette.bg })
+		vim.api.nvim_set_hl(0, "Notify" .. level .. "Icon", { fg = color })
+		vim.api.nvim_set_hl(0, "Notify" .. level .. "Title", { fg = color })
+	end
 end
+notify_highlights()
+
+-- :colorscheme wipes every custom highlight => re-apply ours after each change
+vim.api.nvim_create_autocmd("ColorScheme", {
+	desc = "Re-apply the notify border colors after a colorscheme change",
+	group = vim.api.nvim_create_augroup("notify-highlights", { clear = true }),
+	callback = notify_highlights,
+})
 
 -- HIGHLIGHT COLORS => shows #ff5500, rgb(), hsl()... as the actual color, inline --
 require("nvim-highlight-colors").setup({})
