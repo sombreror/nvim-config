@@ -13,47 +13,47 @@
 lockfile, every tool auto-installed: the exact same setup restored on any
 machine with one `git clone`.*
 
-[Highlights](#-highlights) •
-[Installation](#-installation) •
-[Plugins](#-plugins) •
-[Keymaps](#%EF%B8%8F-keymaps) •
-[Syncing](#-syncing-changes)
+[Highlights](#highlights) •
+[Installation](#installation) •
+[Plugins](#plugins) •
+[Keymaps](#keymaps) •
+[Syncing](#syncing-changes)
 
 </div>
 
 ---
 
-## 📑 Table of contents
+## Table of contents
 
-- [✨ Highlights](#-highlights)
-- [📚 Learning Neovim](#-learning-neovim)
-- [📦 Requirements](#-requirements)
-- [🚀 Installation](#-installation)
-- [🗂️ Structure](#%EF%B8%8F-structure)
-- [🔌 Plugins](#-plugins)
-- [🧠 Language servers](#-language-servers)
-- [🪄 Formatting](#-formatting)
-- [⚙️ Editor behavior](#%EF%B8%8F-editor-behavior)
-- [⌨️ Keymaps](#%EF%B8%8F-keymaps)
-- [🧰 Commands](#-commands)
-- [🔄 Syncing changes](#-syncing-changes)
+- [Highlights](#highlights)
+- [Learning Neovim](#learning-neovim)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Structure](#structure)
+- [Plugins](#plugins)
+- [Language servers](#language-servers)
+- [Formatting](#formatting)
+- [Editor behavior](#editor-behavior)
+- [Keymaps](#keymaps)
+- [Commands](#commands)
+- [Syncing changes](#syncing-changes)
 
-## ✨ Highlights
+## Highlights
 
 | | |
 | --- | --- |
-| 🧬 **100% native foundations** | `vim.pack` for plugins, `vim.lsp` for language servers, the experimental `vim._core.ui2` for a redesigned cmdline. No plugin-manager framework to learn. |
-| 📌 **Reproducible** | [`nvim-pack-lock.json`](./nvim-pack-lock.json) pins every plugin version; Mason auto-installs **both** the language servers *and* the formatters; `:ConfigUpdate` pulls the latest config from git without leaving the editor. |
-| 🌐 **Web-dev ready** | LSP, Emmet, snippets and formatters for PHP, JS/TS, HTML, CSS and Python — live browser preview included. |
-| 🎯 **Keyboard-first, no VS Code cosplay** | No sidebar, no breadcrumbs: Telescope to find things, Harpoon to switch between hot files, Flash to jump anywhere on screen. |
-| 🔎 **Discoverable** | Press <kbd>Space</kbd> and *wait*: which-key pops up every keymap with its description. The config teaches itself. |
+| **100% native foundations** | `vim.pack` for plugins, `vim.lsp` for language servers, the experimental `vim._core.ui2` for a redesigned cmdline. No plugin-manager framework to learn. |
+| **Reproducible** | [`nvim-pack-lock.json`](./nvim-pack-lock.json) pins every plugin version; Mason auto-installs **both** the language servers *and* the formatters; `:ConfigUpdate` pulls the latest config from git without leaving the editor. |
+| **Web-dev ready** | LSP, Emmet, snippets and formatters for PHP, JS/TS, HTML, CSS and Python — live browser preview included. |
+| **Keyboard-first, no VS Code cosplay** | No sidebar, no breadcrumbs: Telescope to find things, Harpoon to switch between hot files, Flash to jump anywhere on screen. |
+| **Discoverable** | Press <kbd>Space</kbd> and *wait*: which-key pops up every keymap with its description. The config teaches itself. |
 
 > [!NOTE]
 > Big thanks to [**kickstart.nvim**](https://github.com/nvim-lua/kickstart.nvim) —
 > an invaluable guide for learning how a Neovim config is structured, and where
 > a lot of the ideas here come from.
 
-## 📚 Learning Neovim
+## Learning Neovim
 
 Before reaching for the internet, use Neovim's **built-in documentation** — it is
 excellent, always matches the version you are running, and is the single best
@@ -85,7 +85,7 @@ fingers:
 saving…). Work through it directly inside Neovim — it is the recommended
 starting point for anyone new to the editor.
 
-## 📦 Requirements
+## Requirements
 
 | Tool | Why |
 | --- | --- |
@@ -98,11 +98,11 @@ starting point for anyone new to the editor.
 | **Node.js** | Required by `prettierd` and the JS/TS/JSON/HTML/CSS language servers |
 | `fd` *(optional)* | Faster file finding for Telescope |
 
-## 🚀 Installation
+## Installation
 
 Follow the steps in order. Every command you need is listed here.
 
-### 1️⃣ Install the system dependencies
+### 1. Install the system dependencies
 
 These must be on your `PATH` **before** launching Neovim.
 
@@ -113,7 +113,7 @@ sudo dnf install neovim git lazygit ripgrep fd-find gcc make nodejs
 ```
 
 <details>
-<summary><b>📦 Other systems</b> (Debian, Arch, macOS…)</summary>
+<summary><b>Other systems</b> (Debian, Arch, macOS…)</summary>
 
 ```bash
 # Debian / Ubuntu
@@ -150,7 +150,7 @@ brew install neovim git lazygit ripgrep fd gcc make node
 Also install a **[Nerd Font](https://www.nerdfonts.com/)** and select it in
 your terminal, otherwise the statusline and file-type icons render as boxes.
 
-### 2️⃣ Clone the repo
+### 2. Clone the repo
 
 ```bash
 git clone git@github.com:sombreror/nvim-config.git ~/.config/nvim
@@ -162,7 +162,7 @@ git clone git@github.com:sombreror/nvim-config.git ~/.config/nvim
 > mv ~/.config/nvim ~/.config/nvim.bak
 > ```
 
-### 3️⃣ First launch — everything downloads itself
+### 3. First launch — everything downloads itself
 
 ```bash
 nvim
@@ -172,13 +172,13 @@ On the first launch, **automatically**:
 
 - `vim.pack` downloads every plugin at the exact versions pinned in
   [`nvim-pack-lock.json`](./nvim-pack-lock.json);
-- Mason installs the [language servers](#-language-servers) **and** the
-  [formatters](#-formatting);
+- Mason installs the [language servers](#language-servers) **and** the
+  [formatters](#formatting);
 - `tree-sitter-manager` installs the Treesitter parsers.
 
 Wait for it to finish, then quit with `:qa`.
 
-### 4️⃣ Build the Telescope native sorter (once)
+### 4. Build the Telescope native sorter (once)
 
 ```bash
 make -C ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim
@@ -187,12 +187,12 @@ make -C ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim
 > [!NOTE]
 > Re-run this whenever `telescope-fzf-native` is updated.
 
-### 5️⃣ Done ✅
+### 5. Done
 
 Restart Neovim. Everything should now work — verify with `:checkhealth` if
 something looks off.
 
-## 🗂️ Structure
+## Structure
 
 One file per area: options, keymaps and autocmds live under `config/`, every
 plugin is set up in its own themed module under `plugins/`.
@@ -220,9 +220,9 @@ plugin is set up in its own themed module under `plugins/`.
         └── lsp.lua            # Mason + servers + formatters + lazydev (loaded last)
 ```
 
-## 🔌 Plugins
+## Plugins
 
-### 🧠 LSP & completion
+### LSP & completion
 
 | Plugin | What it does |
 | --- | --- |
@@ -231,20 +231,20 @@ plugin is set up in its own themed module under `plugins/`.
 | **blink.cmp** + **friendly-snippets** | Autocompletion and snippets (`super-tab`: accept with <kbd>Tab</kbd>) |
 | **lazydev.nvim** | Completion and docs for the Neovim API (`vim.*`) when editing this very config |
 
-### ✏️ Editing
+### Editing
 
 | Plugin | What it does |
 | --- | --- |
 | **tree-sitter-manager** | Treesitter parsers, auto-installed |
 | **nvim-autopairs** | Auto-closes brackets and quotes (treesitter-aware) |
-| **conform.nvim** | Code formatting, one formatter per language (manual — see [Formatting](#-formatting)) |
+| **conform.nvim** | Code formatting, one formatter per language (manual — see [Formatting](#formatting)) |
 | **mini.ai** | Smarter textobjects: `vif` = inside function, `via` = inside argument, `viq` = inside quotes |
 | **mini.surround** | Add / change / delete surrounding pairs (`sa` / `sd` / `sr`) |
 | **mini.move** | Move lines and selections with <kbd>Alt</kbd><kbd>hjkl</kbd> |
 | **mini.trailspace** | Highlights trailing whitespace; trim on demand with `<leader>cw` (no silent edits on save) |
 | **todo-comments.nvim** | Highlights `TODO` / `FIXME` / `HACK` / `WARN` / `NOTE` and lists them with Telescope (`<leader>ft`) |
 
-### 🔭 Search & navigation
+### Search & navigation
 
 | Plugin | What it does |
 | --- | --- |
@@ -255,21 +255,21 @@ plugin is set up in its own themed module under `plugins/`.
 | **grug-far.nvim** | Project-wide search & replace powered by ripgrep, with a live editable preview (`<leader>sr`) |
 | **which-key.nvim** | Press <kbd>Space</kbd> and wait: popup with every keymap and what it does |
 
-### 🌿 Git
+### Git
 
 | Plugin | What it does |
 | --- | --- |
 | **gitsigns** | Change markers in the gutter + hunk actions: jump (`]c` / `[c`), preview, stage and reset hunks — even just the selected lines — without leaving the file |
 | **lazygit.nvim** | Full git UI inside Neovim (`<leader>gg`) |
 
-### 🌐 Web development
+### Web development
 
 | Plugin | What it does |
 | --- | --- |
 | **live-preview.nvim** | `:LivePreview start` serves the current HTML/CSS/JS or Markdown file in the browser and hot-reloads it on every save. No Node, no extensions. *(Static files only — PHP still needs `php -S localhost:8000`.)* |
 | **nvim-highlight-colors** | Shows `#ff5500`, `rgb()`, `hsl()`… as the actual color, inline |
 
-### 🎨 Appearance
+### Appearance
 
 | Plugin | What it does |
 | --- | --- |
@@ -281,7 +281,7 @@ plugin is set up in its own themed module under `plugins/`.
 > `noice.nvim` must **not** be added — it conflicts with the native
 > `vim._core.ui2` UI already enabled in `init.lua`.
 
-## 🧠 Language servers
+## Language servers
 
 Auto-installed via Mason: `lua_ls`, `pyright`, `ts_ls`, `intelephense`,
 `html`, `cssls`, `emmet_language_server`, `eslint`, `jsonls`.
@@ -292,7 +292,7 @@ Auto-installed via Mason: `lua_ls`, `pyright`, `ts_ls`, `intelephense`,
 > inside PHP files with embedded HTML. PHP itself is still handled by
 > `intelephense`.
 
-## 🪄 Formatting
+## Formatting
 
 Handled by **conform.nvim**. Formatting is **not run on save** — it is
 triggered manually with `<leader>cf`, which formats the buffer (or the visual
@@ -301,11 +301,11 @@ without reformatting when you don't want to.
 
 | Language | Formatter |
 | --- | --- |
-| 🌙 Lua | `stylua` |
-| 🐍 Python | `black` |
-| 🟨 JS / TS / JSON | `biome` *(falls back to `prettierd`)* |
-| 🎨 HTML / CSS / SCSS | `prettierd` |
-| 🐘 PHP | `php-cs-fixer` *(needs a `composer.json` in the project)* |
+| Lua | `stylua` |
+| Python | `black` |
+| JS / TS / JSON | `biome` *(falls back to `prettierd`)* |
+| HTML / CSS / SCSS | `prettierd` |
+| PHP | `php-cs-fixer` *(needs a `composer.json` in the project)* |
 
 > [!NOTE]
 > All the formatters are **installed automatically** by
@@ -317,26 +317,26 @@ without reformatting when you don't want to.
 - ESLint fixes are separate from formatting: `<leader>ce` applies every
   auto-fixable lint problem in the current JS/TS buffer.
 
-## ⚙️ Editor behavior
+## Editor behavior
 
 Automatic behavior configured in `autocmd.lua`:
 
-- ✨ Yanked (copied) text is briefly highlighted.
-- 📍 The cursor returns to its last position when you reopen a file.
-- 🔄 Files changed outside Neovim (lazygit, `git checkout`…) are reloaded
+- Yanked (copied) text is briefly highlighted.
+- The cursor returns to its last position when you reopen a file.
+- Files changed outside Neovim (lazygit, `git checkout`…) are reloaded
   automatically — with a notification telling you *which* file was reloaded.
-- 🖥️ The terminal opens with no line numbers, already in insert mode.
-- ⚖️ Splits are re-balanced when the terminal window is resized.
-- 💬 Comment leaders are **not** auto-continued when you start a new line.
-- 🧹 Trailing whitespace is highlighted (mini.trailspace) and trimmed manually
+- The terminal opens with no line numbers, already in insert mode.
+- Splits are re-balanced when the terminal window is resized.
+- Comment leaders are **not** auto-continued when you start a new line.
+- Trailing whitespace is highlighted (mini.trailspace) and trimmed manually
   with `<leader>cw` — never silently on save.
 
-## ⌨️ Keymaps
+## Keymaps
 
 Leader is <kbd>Space</kbd>. **Press <kbd>Space</kbd> and wait** — which-key
 shows everything below, live.
 
-### 🔭 Find (Telescope)
+### Find (Telescope)
 
 | Key | Action |
 | --- | --- |
@@ -348,7 +348,7 @@ shows everything below, live.
 | `<leader>ft` | TODO comments |
 | `<leader>fs` | Symbols in the current file (functions, classes…) |
 
-### 🎯 Jump & switch
+### Jump & switch
 
 | Key | Action |
 | --- | --- |
@@ -359,7 +359,7 @@ shows everything below, live.
 | `<leader>h` | Harpoon — open the menu (edit / reorder the list) |
 | `<leader>1..4` | Harpoon — jump straight to file 1..4 |
 
-### 🌿 Git
+### Git
 
 | Key | Action |
 | --- | --- |
@@ -374,7 +374,7 @@ shows everything below, live.
 | `<leader>gc` | Telescope — git commits |
 | `<leader>gb` | Telescope — git branches |
 
-### 🧠 LSP & code
+### LSP & code
 
 | Key | Action |
 | --- | --- |
@@ -389,7 +389,7 @@ shows everything below, live.
 | `<leader>cw` | Trim trailing whitespace + empty last lines |
 | `<leader>sr` | Search & replace in the whole project (grug-far) |
 
-### ✏️ Editing
+### Editing
 
 | Key | Action |
 | --- | --- |
@@ -399,7 +399,7 @@ shows everything below, live.
 | `p` *(visual)* | Paste without overwriting the register |
 | <kbd>Esc</kbd> | Clear search highlight |
 
-### 🪟 Windows & terminal
+### Windows & terminal
 
 | Key | Action |
 | --- | --- |
@@ -408,7 +408,7 @@ shows everything below, live.
 | `<leader>t` | Open the terminal inside Neovim |
 | <kbd>Esc</kbd><kbd>Esc</kbd> *(terminal)* | Back to normal mode |
 
-## 🧰 Commands
+## Commands
 
 | Command | What it does |
 | --- | --- |
@@ -419,7 +419,7 @@ shows everything below, live.
 | `:Mason` | Manage language servers and formatters |
 | `:TSInstall <lang>` | Install an extra Treesitter parser |
 
-## 🔄 Syncing changes
+## Syncing changes
 
 The whole point of this repo is that the config is the same on every machine.
 
@@ -440,10 +440,10 @@ to leave the editor or remember git commands:
 
 It runs `git pull --rebase --autostash` against this repo, so it:
 
-- 🚫🧊 **never freezes the editor** — git runs asynchronously in the background;
-- 🛟 **keeps your local edits safe** — uncommitted changes are auto-stashed
+- **never freezes the editor** — git runs asynchronously in the background;
+- **keeps your local edits safe** — uncommitted changes are auto-stashed
   before the pull and restored after it (`--autostash`);
-- 📣 **tells you exactly what happened** — *already up to date*, *updated*, or
+- **tells you exactly what happened** — *already up to date*, *updated*, or
   the git error, as a notification popup (🟢 / 🟡 / 🔴).
 
 > [!IMPORTANT]
@@ -461,6 +461,6 @@ git -C ~/.config/nvim pull
 
 <div align="center">
 
-*Made with 🌙 Lua and ⚡ Neovim — [sombreror](https://github.com/sombreror)*
+*Made with Lua and Neovim — [sombreror](https://github.com/sombreror)*
 
 </div>
