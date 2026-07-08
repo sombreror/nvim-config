@@ -399,6 +399,10 @@ shows everything below, live.
 
 ### LSP & code
 
+The LSP keymaps below activate **per buffer** when a language server attaches
+(`LspAttach`) — in buffers without a server, the native `gd` / `grr` keep
+their default behavior.
+
 | Key | Action |
 | --- | --- |
 | `gd` | Go to definition |
@@ -497,8 +501,8 @@ It runs `git pull --rebase --autostash` against this repo, so it:
 
 > [!IMPORTANT]
 > After an update Neovim is still running the **old** config it loaded at
-> startup. **Restart Neovim** to apply the new version — `:restart` on Neovim
-> 0.11+, otherwise `:qa` and reopen.
+> startup. **Restart Neovim** to apply the new version — `:restart` does it
+> in one step.
 
 The equivalent from a terminal, if you prefer:
 
