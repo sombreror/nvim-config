@@ -47,19 +47,27 @@ vim.keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "Ope
 vim.keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "Open with Telescope git_commits" })
 vim.keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", { desc = "Open with Telescope git_branches" })
 
--- LSP --
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+-- DIAGNOSTICS => vim.diagnostic, works even without an LSP server --
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic under cursor" })
-vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Rename symbol in the whole project" })
-vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action (fix, refactor...)" })
--- grr => native since 0.11, but the quickfix list is bare ; telescope picker instead
-vim.keymap.set("n", "grr", "<cmd>Telescope lsp_references<CR>", { desc = "References of the symbol (telescope)" })
-vim.keymap.set(
-	"n",
-	"<leader>fs",
-	"<cmd>Telescope lsp_document_symbols<CR>",
-	{ desc = "Symbols in the file: functions, classes... (telescope)" }
-)
+
+-- LSP => buffer-local via LspAttach (same pattern as gitsigns) --
+-- the keymaps exist only where a server is attached ; elsewhere the native
+-- gd (local declaration) and grr (quickfix references) keep working
+vim.api.nvim_create_autocmd("LspAttach", {
+	desc = "Buffer-local LSP keymaps",
+	group = vim.api.nvim_create_augroup("lsp-keymaps", { clear = true }),
+	callback = function(args)
+		local function map(mode, l, r, desc)
+			vim.keymap.set(mode, l, r, { buffer = args.buf, desc = desc })
+		end
+		map("n", "gd", vim.lsp.buf.definition, "Go to definition")
+		map("n", "<leader>cr", vim.lsp.buf.rename, "Rename symbol in the whole project")
+		map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code action (fix, refactor...)")
+		-- grr => native since 0.11, but the quickfix list is bare ; telescope picker instead
+		map("n", "grr", "<cmd>Telescope lsp_references<CR>", "References of the symbol (telescope)")
+		map("n", "<leader>fs", "<cmd>Telescope lsp_document_symbols<CR>", "Symbols in the file (telescope)")
+	end,
+})
 
 -- FORMAT (conform) => format then save --
 -- (in visual mode formatters without range support, e.g. black, format the whole file)
