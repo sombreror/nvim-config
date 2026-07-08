@@ -102,7 +102,7 @@ starting point for anyone new to the editor.
 | [`lazygit`](https://github.com/jesseduffield/lazygit) | In-editor git UI (`<leader>gg`) |
 | **Nerd Font** | Statusline and file-type icons |
 | `ripgrep` | Text search: Telescope `live_grep` and grug-far |
-| `make` + `gcc` | Build `telescope-fzf-native` once on install |
+| `make` + `gcc` | Compile `telescope-fzf-native` (happens automatically on install/update) |
 | **Node.js** | Required by `prettierd` and the JS/TS/JSON/HTML/CSS language servers |
 | `fd` *(optional)* | Faster file finding for Telescope |
 
@@ -182,20 +182,13 @@ On the first launch, **automatically**:
   [`nvim-pack-lock.json`](./nvim-pack-lock.json);
 - Mason installs the [language servers](#language-servers) **and** the
   [formatters](#formatting);
-- `tree-sitter-manager` installs the Treesitter parsers.
+- `tree-sitter-manager` installs the Treesitter parsers;
+- the `telescope-fzf-native` native sorter is compiled (and re-compiled on
+  every update of the plugin — no manual `make` needed, ever).
 
 Wait for it to finish, then quit with `:qa`.
 
-### 4. Build the Telescope native sorter (once)
-
-```bash
-make -C ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim
-```
-
-> [!NOTE]
-> Re-run this whenever `telescope-fzf-native` is updated.
-
-### 5. Done
+### 4. Done
 
 Restart Neovim. Everything should now work — verify with `:checkhealth` if
 something looks off.
@@ -469,7 +462,7 @@ shows everything below, live.
 | Symptom | Fix |
 | --- | --- |
 | Icons render as boxes or `?` | The terminal is not using a **Nerd Font** — install one and select it in the terminal profile |
-| Telescope errors about `fzf`, search feels slow | The native sorter was never built — re-run step 4 of [Installation](#installation) |
+| A warning says the fzf sorter is not built, search feels slow | The automatic build failed — make sure `make` and `gcc` are installed, then run `make -C ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim` and restart |
 | A formatter or language server is missing | Open `:Mason` and check it is installed — `:MasonLog` shows why an install failed |
 | Anything else looks off | `:checkhealth` — it inspects this whole config, plugin by plugin |
 
