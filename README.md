@@ -197,7 +197,34 @@ something looks off.
 ## Structure
 
 One file per area: options, keymaps and autocmds live under `config/`, every
-plugin is set up in its own themed module under `plugins/`.
+plugin is set up in its own themed module under `plugins/`. The arrows show
+the **load order** at startup:
+
+```mermaid
+flowchart LR
+    INIT["init.lua<br/>entry point"]
+
+    subgraph CONFIG["lua/config/ — the editor itself"]
+        direction TB
+        OPT["options.lua<br/>editor options"]
+        KEY["keymaps.lua<br/>keyboard shortcuts"]
+        AUTO["autocmd.lua<br/>automatic behavior"]
+        CMD["commands.lua<br/>:ConfigUpdate, :PackUpdate"]
+    end
+
+    subgraph PLUGINS["lua/plugins/ — one module per area"]
+        direction TB
+        PLIST["init.lua<br/>plugin list: vim.pack + lockfile"]
+        AREAS["completion · treesitter · editing · git<br/>telescope · navigation · ui"]
+        LSP["lsp.lua<br/>loaded last — enables the servers"]
+        PLIST --> AREAS --> LSP
+    end
+
+    INIT --> CONFIG --> PLUGINS
+```
+
+<details>
+<summary><b>Classic tree view</b> — every file and what it does</summary>
 
 ```
 .
@@ -221,6 +248,7 @@ plugin is set up in its own themed module under `plugins/`.
         ├── ui.lua             # tokyonight, lualine, nvim-notify, highlight-colors
         └── lsp.lua            # Mason + servers + formatters + lazydev (loaded last)
 ```
+</details>
 
 ## Plugins
 
