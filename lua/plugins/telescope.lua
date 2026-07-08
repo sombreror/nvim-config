@@ -30,7 +30,12 @@ require("telescope").setup({
 })
 
 -- LOAD => load_extension fzf --
-require("telescope").load_extension("fzf")
+-- pcall => if libfzf.so is missing, the error would abort every module loaded
+-- after this one (navigation, ui, lsp...) ; degrade to the lua sorter instead
+local fzf_ok = pcall(require("telescope").load_extension, "fzf")
+if not fzf_ok then
+	vim.notify("telescope-fzf-native is not built => using the slower lua sorter", vim.log.levels.WARN)
+end
 
 -- TELESCOPE => File Browser --
 require("telescope").load_extension("file_browser")
