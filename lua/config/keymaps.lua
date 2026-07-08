@@ -39,6 +39,13 @@ vim.keymap.set(
 -- TELESCOPE TODO --
 vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Open TodoTelescope to search TODO comments" })
 
+-- TELESCOPE HELP => fuzzy search the whole nvim help (options, functions, plugins...) --
+vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "Search the nvim help" })
+
+-- TELESCOPE DIAGNOSTICS => every error/warning of the project in one picker --
+-- (<leader>e shows only the diagnostic under the cursor ; this lists them all)
+vim.keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics<CR>", { desc = "All project diagnostics (telescope)" })
+
 -- TELESCOPE LIVE GREP => search TEXT in the whole project (needs ripgrep) --
 vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "Live grep: search text in the project" })
 

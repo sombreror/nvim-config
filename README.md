@@ -366,6 +366,8 @@ shows everything below, live.
 | `<leader>fb` | Open buffers |
 | `<leader>fr` | Resume the last picker |
 | `<leader>ft` | TODO comments |
+| `<leader>fh` | Search the Neovim help |
+| `<leader>fd` | All diagnostics of the project (errors, warnings…) |
 | `<leader>fs` | Symbols in the current file (functions, classes…) |
 
 ### Jump & switch
