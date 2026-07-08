@@ -536,6 +536,18 @@ history of the project at a glance, from the first usable setup to the
 current version. Note that `:ConfigUpdate` always follows the tip of `main`,
 not the latest release.
 
+## Uninstalling
+
+Neovim keeps files in four places. To remove this config and everything it
+installed:
+
+```bash
+rm -rf ~/.config/nvim          # the config itself (this repo)
+rm -rf ~/.local/share/nvim     # plugins, language servers, formatters, parsers
+rm -rf ~/.local/state/nvim     # undo history, logs
+rm -rf ~/.cache/nvim           # temporary caches
+```
+
 ## License
 
 Released under the [MIT License](./LICENSE).
