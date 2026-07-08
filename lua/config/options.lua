@@ -50,6 +50,9 @@ vim.opt.scrolloff = 999 -- => 999 so the cursor when navigating is always in the
 -- preserve indentation when long lines wrap
 vim.opt.breakindent = true
 
+-- wrap long lines at word boundaries => never mid-word
+vim.opt.linebreak = true
+
 -- rounded border on every floating window (LSP hover, signature help, diagnostics...)
 vim.opt.winborder = "rounded"
 
