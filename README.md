@@ -8,6 +8,7 @@
 [![Lua](https://img.shields.io/badge/Lua-100%25-2C2D72?style=for-the-badge&logo=lua&logoColor=white)](https://www.lua.org)
 [![vim.pack](https://img.shields.io/badge/plugins-vim.pack_(native)-7aa2f7?style=for-the-badge)](https://neovim.io/doc/user/pack.html)
 <br>
+[![Release](https://img.shields.io/github/v/release/sombreror/nvim-config?style=for-the-badge&color=f7768e)](https://github.com/sombreror/nvim-config/releases)
 [![Theme](https://img.shields.io/badge/theme-Tokyo_Night-bb9af7?style=for-the-badge)](https://github.com/folke/tokyonight.nvim)
 [![License](https://img.shields.io/badge/license-MIT-9ece6a?style=for-the-badge)](./LICENSE)
 [![Last commit](https://img.shields.io/github/last-commit/sombreror/nvim-config?style=for-the-badge&color=e0af68)](https://github.com/sombreror/nvim-config/commits/main)
@@ -526,6 +527,14 @@ version: apply with `:write`, or discard with `:q`.
 > Applying also refreshes [`nvim-pack-lock.json`](./nvim-pack-lock.json) —
 > **commit it** so every other machine gets the same plugin versions on the
 > next `:ConfigUpdate`.
+
+### Versioning
+
+Milestones are tagged and published on the
+[**Releases page**](https://github.com/sombreror/nvim-config/releases) — the
+history of the project at a glance, from the first usable setup to the
+current version. Note that `:ConfigUpdate` always follows the tip of `main`,
+not the latest release.
 
 ## License
 
