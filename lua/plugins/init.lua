@@ -1,3 +1,25 @@
+-- fzf-native => C sorter, must be compiled ; vim.pack has no build hooks,
+-- so compile on every install/update via the PackChanged event
+-- (registered BEFORE vim.pack.add: on a fresh machine the install fires right below)
+vim.api.nvim_create_autocmd("PackChanged", {
+	desc = "Compile telescope-fzf-native after install/update",
+	group = vim.api.nvim_create_augroup("build-fzf-native", { clear = true }),
+	callback = function(args)
+		if args.data.spec.name ~= "telescope-fzf-native.nvim" or args.data.kind == "delete" then
+			return
+		end
+		-- :wait() => sync on purpose: on a fresh install the build must finish
+		-- before plugins/telescope.lua runs load_extension("fzf")
+		local res = vim.system({ "make", "-C", args.data.path }, { text = true }):wait()
+		if res.code ~= 0 then
+			vim.notify(
+				"telescope-fzf-native build failed:\n" .. vim.trim((res.stdout or "") .. (res.stderr or "")),
+				vim.log.levels.ERROR
+			)
+		end
+	end,
+})
+
 -- Plugin list => vim.pack downloads everything at the versions pinned in nvim-pack-lock.json
 vim.pack.add({
 	"https://github.com/neovim/nvim-lspconfig", -- => ready-made config for every lsp server
